@@ -1,13 +1,14 @@
+package src.backend;
 import java.util.ArrayList;
 
-public class RawData 
+public class Library
 {
     //ArrayList variable
-    private ArrayList<Composition> metadata;
+    private static ArrayList<Composition> metadata;
 
 
     //Constructor
-    public RawData()
+    public Library()
     {
         metadata = new ArrayList<Composition>();
     }
@@ -24,12 +25,12 @@ public class RawData
     }
 
     //Setters
-    public void append(Composition c)
+    public static void append(Composition c)
     {
         metadata.add(c);
     }
 
-    public void add(Composition c, int index)
+    public static void add(Composition c, int index)
     {
         metadata.add(index, c);
     }

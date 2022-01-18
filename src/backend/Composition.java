@@ -1,12 +1,14 @@
+package src.backend;
+
 public class Composition
 {
     //Instance variables
     private String title;
     private String composer;
     private String arranger;
+    private String publisher;
     private int vbodaGrade;
     private String notes;
-    private int pubYear;
 
     //Constructors; make more constructors later
     public Composition()
@@ -15,38 +17,38 @@ public class Composition
         composer = "";
         arranger = "";
         vbodaGrade = 0;
+        publisher = "";
         notes = "";
-        pubYear = 0;
     }
 
-    public Composition(String title, String composer, int pubYear)
+    public Composition(String title, String composer, String publisher)
     {
         this.title = title;
         this.composer = composer;
         arranger = "";
+        this.publisher = publisher;
         vbodaGrade = 0;
         notes = "";
-        this.pubYear = pubYear;
     }
 
-    public Composition(String title, String composer, int vbodaGrade, String notes, int pubYear)
+    public Composition(String title, String composer, String publisher, int vbodaGrade, String notes)
     {
         this.title = title;
         this.composer = composer;
         arranger = "";
+        this.publisher = publisher;
         this.vbodaGrade = vbodaGrade;
         this.notes = notes;
-        this.pubYear = pubYear;
     }
 
-    public Composition(String title, String composer, String arranger, int vbodaGrade, String notes, int pubYear)
+    public Composition(String title, String composer, String arranger, String publisher, int vbodaGrade, String notes)
     {
         this.title = title;
         this.composer = composer;
         this.arranger = arranger;
+        this.publisher = publisher;
         this.vbodaGrade = vbodaGrade;
         this.notes = notes;
-        this.pubYear = pubYear;
     }
 
     //Getters
@@ -65,6 +67,11 @@ public class Composition
         return arranger;
     }
 
+    public String getPublisher()
+    {
+        return publisher;
+    }
+
     public int getVbodaGrade()
     {
         return vbodaGrade;
@@ -74,12 +81,6 @@ public class Composition
     {
         return notes;
     }
-
-    public int getPubYear()
-    {
-        return pubYear;
-    }
-    
 
     //Setters
     public void setTitle(String title)
@@ -102,14 +103,14 @@ public class Composition
         this.vbodaGrade = vbodaGrade;
     }
 
+    public void setPublisher(String publisher)
+    {
+        this.publisher = publisher;
+    }
+
     public void setNotes(String notes)
     {
         this.notes = notes;
-    }
-
-    public void setPubYear(int pubYear)
-    {
-        this.pubYear = pubYear;
     }
 
     //toString
@@ -118,8 +119,8 @@ public class Composition
         return title + ", " +
             composer + ", " +
             arranger + ", " +
+            publisher + ", " +
             vbodaGrade + ", " +
-            notes + ", " +
-            pubYear + ", ";
+            notes;
     }
 }
