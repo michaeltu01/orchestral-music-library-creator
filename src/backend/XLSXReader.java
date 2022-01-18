@@ -1,3 +1,5 @@
+package src.backend;
+
 import java.io.File;  
 import java.io.FileInputStream;  
 import java.util.Iterator;  
@@ -6,9 +8,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;  
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class MusicLibraryReader
+//Reads VBODA Music Library into the search function AND imports any existing XSLX music library
+
+public class XLSXReader
 {
-    public static void main(String[] args)   
+    public static void main(String[] args)
     {  
         try  
         {  
