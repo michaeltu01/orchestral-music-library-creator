@@ -5,7 +5,7 @@
 package src.gui;
 
 import src.backend.Composition;
-import src.backend.Library;
+import src.backend.XLSXMusicLibrary;
 
 import java.awt.BorderLayout;
 import java.awt.event.*;
@@ -33,7 +33,7 @@ public class EditFrame extends JPanel
     private JTextField titleField;
     private JTextField vbodaGradeField;
 
-    private static Library library; //Create a general object
+    private static XLSXMusicLibrary library; //Create a general object
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -43,7 +43,7 @@ public class EditFrame extends JPanel
     
     public EditFrame() {
         initComponents();
-        library = new Library();
+        library = new XLSXMusicLibrary();
     }
 
     /**
@@ -131,7 +131,12 @@ public class EditFrame extends JPanel
         addButton.setText("Add");
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                addButtonActionPerformed(evt);
+                try {
+                    addButtonActionPerformed(evt);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -249,7 +254,7 @@ public class EditFrame extends JPanel
         // TODO add your handling code here:
     }//GEN-LAST:event_notesFieldActionPerformed
 
-    private void addButtonActionPerformed(ActionEvent evt)
+    private void addButtonActionPerformed(ActionEvent evt) throws Exception
     {
         Composition c = new Composition(titleField.getText(),
                                             composerField.getText(),
@@ -257,9 +262,10 @@ public class EditFrame extends JPanel
                                             publisherField.getText(),
                                             Integer.parseInt(vbodaGradeField.getText()),
                                             notesField.getText());
-        library.append(c);
+        library.add(c);
+        XLSXMusicLibrary.write();
 
-        EditConfirmationFrame ecFrame = new EditConfirmationFrame(c, library);
+        EditSummaryFrame ecFrame = new EditSummaryFrame(c, library);
 
         //1. Create the frame.
         JFrame frame = new JFrame("EditConfirmationFrame");

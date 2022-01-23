@@ -6,6 +6,7 @@ package src.gui;
 
 import src.backend.Composition;
 import src.backend.Library;
+import src.backend.XLSXMusicLibrary;
 
 import java.awt.Window;
 import java.awt.event.*;
@@ -15,7 +16,7 @@ import javax.swing.*;
  *
  * @author Michael Tu
  */
-public class EditConfirmationFrame extends JPanel {
+public class EditSummaryFrame extends JPanel {
 
     private JButton backButton;
     private JLabel metadata;
@@ -24,7 +25,7 @@ public class EditConfirmationFrame extends JPanel {
     /**
      * Creates new form EditConfirmationFrame
      */
-    public EditConfirmationFrame(Composition c, Library l) {
+    public EditSummaryFrame(Composition c, XLSXMusicLibrary l) {
         initComponents(c, l);
     }
 
@@ -35,7 +36,7 @@ public class EditConfirmationFrame extends JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(Composition c, Library l) {
+    private void initComponents(Composition c, XLSXMusicLibrary l) {
 
         title = new JLabel();
         metadata = new JLabel();

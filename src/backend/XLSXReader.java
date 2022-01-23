@@ -41,7 +41,7 @@ public class XLSXReader
                             default:  
                         }  
                     }  
-                        System.out.println("");  
+                    System.out.println("");  
                 }
             } //try-with-resources block auto closes file
         }

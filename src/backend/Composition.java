@@ -7,7 +7,7 @@ public class Composition
     private String composer;
     private String arranger;
     private String publisher;
-    private int vbodaGrade;
+    private Integer vbodaGrade;
     private String notes;
 
     //Constructors; make more constructors later
@@ -31,7 +31,7 @@ public class Composition
         notes = "";
     }
 
-    public Composition(String title, String composer, String publisher, int vbodaGrade, String notes)
+    public Composition(String title, String composer, String publisher, Integer vbodaGrade, String notes)
     {
         this.title = title;
         this.composer = composer;
@@ -41,7 +41,7 @@ public class Composition
         this.notes = notes;
     }
 
-    public Composition(String title, String composer, String arranger, String publisher, int vbodaGrade, String notes)
+    public Composition(String title, String composer, String arranger, String publisher, Integer vbodaGrade, String notes)
     {
         this.title = title;
         this.composer = composer;
@@ -72,7 +72,7 @@ public class Composition
         return publisher;
     }
 
-    public int getVbodaGrade()
+    public Integer getVbodaGrade()
     {
         return vbodaGrade;
     }
@@ -98,7 +98,7 @@ public class Composition
         this.arranger = arranger;
     }
 
-    public void setVbodaGrade(int vbodaGrade)
+    public void setVbodaGrade(Integer vbodaGrade)
     {
         this.vbodaGrade = vbodaGrade;
     }

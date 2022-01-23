@@ -25,12 +25,12 @@ public class Library
     }
 
     //Setters
-    public static void append(Composition c)
+    public void append(Composition c)
     {
         metadata.add(c);
     }
 
-    public static void add(Composition c, int index)
+    public void add(Composition c, int index)
     {
         metadata.add(index, c);
     }

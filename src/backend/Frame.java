@@ -3,6 +3,8 @@ import java.awt.*;
 
 public class Frame extends JFrame 
 {
+    private JFrame window;
+    
     public static JFrame createHomeFrame()
     {
         JFrame home = new JFrame("Music Library Creator");
@@ -17,11 +19,6 @@ public class Frame extends JFrame
         home.setVisible(true);
 
         return home;
-    }
-
-    public static void mainFrame() //Enter all the metadata
-    {
-
     }
 
     public static void main(String[] args)
