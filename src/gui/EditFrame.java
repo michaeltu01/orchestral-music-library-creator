@@ -5,7 +5,7 @@
 package src.gui;
 
 import src.backend.Composition;
-import src.backend.XLSXMusicLibrary;
+import src.backend.Library;
 
 import java.awt.BorderLayout;
 import java.awt.event.*;
@@ -33,7 +33,7 @@ public class EditFrame extends JPanel
     private JTextField titleField;
     private JTextField vbodaGradeField;
 
-    private static XLSXMusicLibrary library; //Create a general object
+    private static Library library; //Create a general object
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -43,7 +43,7 @@ public class EditFrame extends JPanel
     
     public EditFrame() {
         initComponents();
-        library = new XLSXMusicLibrary();
+        library = new Library();
     }
 
     /**
@@ -262,19 +262,18 @@ public class EditFrame extends JPanel
                                             publisherField.getText(),
                                             Integer.parseInt(vbodaGradeField.getText()),
                                             notesField.getText());
-        library.add(c);
-        XLSXMusicLibrary.write();
+        library.append(c);
 
-        EditSummaryFrame ecFrame = new EditSummaryFrame(c, library);
+        EditSummaryFrame esFrame = new EditSummaryFrame(c, library);
 
         //1. Create the frame.
         JFrame frame = new JFrame("EditConfirmationFrame");
 
         //2. Optional: What happens when the frame closes?
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //3. Create your panel and put it in the frame.
-        frame.getContentPane().add(ecFrame, BorderLayout.CENTER);
+        frame.getContentPane().add(esFrame, BorderLayout.CENTER);
 
         //4. Size the frame.
         frame.pack();
@@ -287,6 +286,19 @@ public class EditFrame extends JPanel
     {
         //1. Create the frame.
         JFrame frame = new JFrame("EditFrame");
+
+        frame.addWindowListener(new WindowAdapter(){
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // TODO Auto-generated method stub
+                JFrame sframe = new JFrame("Do you want to save?");
+
+                sframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                sframe.getContentPane().add(new SavePrompt(library), BorderLayout.CENTER);
+                sframe.pack();
+                sframe.setVisible(true);
+            }});
 
         //2. Optional: What happens when the frame closes?
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

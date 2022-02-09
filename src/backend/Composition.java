@@ -1,5 +1,7 @@
 package src.backend;
 
+import java.util.ArrayList;
+
 public class Composition
 {
     //Instance variables
@@ -49,6 +51,16 @@ public class Composition
         this.publisher = publisher;
         this.vbodaGrade = vbodaGrade;
         this.notes = notes;
+    }
+
+    public Composition(ArrayList<String> arr)
+    {
+        title = arr.get(0);
+        composer = arr.get(1);
+        arranger = arr.get(2);
+        publisher = arr.get(3);
+        vbodaGrade = Integer.parseInt(arr.get(4));
+        notes = arr.get(5);
     }
 
     //Getters
@@ -111,6 +123,20 @@ public class Composition
     public void setNotes(String notes)
     {
         this.notes = notes;
+    }
+
+    public ArrayList<String> toArray()
+    {
+        ArrayList<String> arr = new ArrayList<String>();
+
+        arr.add(title);
+        arr.add(composer);
+        arr.add(arranger);
+        arr.add(publisher);
+        arr.add(vbodaGrade.toString());
+        arr.add(notes);
+
+        return arr;
     }
 
     //toString

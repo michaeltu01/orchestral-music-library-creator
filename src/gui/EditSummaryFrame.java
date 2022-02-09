@@ -6,7 +6,6 @@ package src.gui;
 
 import src.backend.Composition;
 import src.backend.Library;
-import src.backend.XLSXMusicLibrary;
 
 import java.awt.Window;
 import java.awt.event.*;
@@ -25,7 +24,7 @@ public class EditSummaryFrame extends JPanel {
     /**
      * Creates new form EditConfirmationFrame
      */
-    public EditSummaryFrame(Composition c, XLSXMusicLibrary l) {
+    public EditSummaryFrame(Composition c, Library l) {
         initComponents(c, l);
     }
 
@@ -36,7 +35,7 @@ public class EditSummaryFrame extends JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(Composition c, XLSXMusicLibrary l) {
+    private void initComponents(Composition c, Library l) {
 
         title = new JLabel();
         metadata = new JLabel();
@@ -45,7 +44,7 @@ public class EditSummaryFrame extends JPanel {
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setText("You added the following composition:");
 
-        metadata.setText(c.toString() + "\n" + l.toString());
+        metadata.setText(c.toString() + " /// " + l.toString());
 
         backButton.setText("Back");
         backButton.addActionListener(new ActionListener() {
@@ -94,7 +93,7 @@ public class EditSummaryFrame extends JPanel {
 
     private void backButtonActionPerformed(ActionEvent evt) 
     {
-        JComponent comp = (JComponent) evt.getSource();
+        JComponent comp = (JComponent)evt.getSource();
         Window win = SwingUtilities.getWindowAncestor(comp);
         win.dispose();
     }
