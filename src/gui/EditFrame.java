@@ -263,6 +263,7 @@ public class EditFrame extends JPanel
                                             Integer.parseInt(vbodaGradeField.getText()),
                                             notesField.getText());
         library.append(c);
+        library.sortByTitle();
 
         EditSummaryFrame esFrame = new EditSummaryFrame(c, library);
 

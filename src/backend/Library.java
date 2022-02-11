@@ -1,6 +1,7 @@
 package src.backend;
-import java.util.ArrayList;
+import src.backend.MergeSort;
 
+import java.util.ArrayList;
 import java.io.File;  
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -108,7 +109,19 @@ public class Library extends ArrayList
     //Instance Methods
     public ArrayList<Composition> sortByTitle() //Returns metadata sort alphabetically by title ascending (A-Z)
     {
+        for (int j = 1; j < metadata.size(); j++)
+        {
+            String current = metadata.get(j).getTitle();
+            int i = j-1;
+            while ((i > -1) && (metadata.get(i).getTitle().compareTo(current) > 0))
+            {
+                metadata.get(i+1).setTitle(metadata.get(i).getTitle());
+                i--;
+            }
+            metadata.get(i+1).setTitle(current);
+        }
 
+        return metadata;
     }
 
     public static void write(File xlsx) throws Exception
@@ -117,10 +130,9 @@ public class Library extends ArrayList
         int rowid = 0;
   
         // writing the data into the sheets...
-  
-        for (int i = 0; i < metadata.size(); i++) {
-            System.out.println("Metadata list size: " + metadata.size());
-
+        System.out.println("Metadata list size: " + metadata.size());
+        for (int i = 0; i < metadata.size(); i++) 
+        {
             XSSFRow row = sheet.createRow(rowid++);
             Composition c = metadata.get(i);
             ArrayList<String> arr = c.toArray();
