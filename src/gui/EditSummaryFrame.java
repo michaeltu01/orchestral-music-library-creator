@@ -44,7 +44,7 @@ public class EditSummaryFrame extends JPanel {
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setText("You added the following composition:");
 
-        metadata.setText(c.toString() + " /// " + l.toString());
+        metadata.setText(c.toString());
 
         backButton.setText("Back");
         backButton.addActionListener(new ActionListener() {

@@ -35,10 +35,8 @@ public class SavePrompt extends JPanel { // https://stackoverflow.com/a/23143716
     private void initComponents() throws IOException, FileNotFoundException
     {
         saveFrame = new JFrame();
-        SPanel = new JPanel();
+        // SPanel = new JPanel();
         jfc = new JFileChooser();
-
-        saveFrame.setVisible(true);
 
         String fullPath = "C:/Users/Michael Tu/Desktop/Code/IA/Data.xlsx";
         // String unzippedPath = fullPath.substring(0, fullPath.length() - 5);
@@ -52,6 +50,15 @@ public class SavePrompt extends JPanel { // https://stackoverflow.com/a/23143716
         int result = jfc.showSaveDialog(null);
         if(result == JFileChooser.APPROVE_OPTION)
         {
+            // if(jfc.getSelectedFile().toString().equals("C:/Users/Michael Tu/Desktop/Code/IA/Data.xlsx"))
+            // {
+            //     JDialog error = new JDialog();
+            //     JLabel message = new JLabel();
+
+            //     message.setText("You can't choose this file.");
+            //     error.setContentPane(message);
+            // }
+
             File in = new File(fullPath);
             File out = new File(jfc.getSelectedFile().toString());
             // System.out.println(out.getAbsolutePath());
@@ -88,13 +95,14 @@ public class SavePrompt extends JPanel { // https://stackoverflow.com/a/23143716
             saveFrame.setVisible(false);
         }
     
-        SPanel.setLayout(new FlowLayout());
-        SPanel.add(jfc);
+        // SPanel.setLayout(new FlowLayout());
+        // SPanel.add(jfc);
     
-        saveFrame.setLayout(new FlowLayout());
-        saveFrame.add(SPanel);
-        saveFrame.pack();
-        saveFrame.setTitle("Save your Doc");
-        saveFrame.setLocationRelativeTo(null);
+        // saveFrame.setLayout(new FlowLayout());
+        // saveFrame.add(SPanel);
+        // saveFrame.pack();
+        // saveFrame.setTitle("Save your Doc");
+        // saveFrame.setLocationRelativeTo(null);
+        // saveFrame.setVisible(true);
     }
 }

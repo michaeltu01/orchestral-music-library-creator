@@ -59,7 +59,16 @@ public class Composition
         composer = arr.get(1);
         arranger = arr.get(2);
         publisher = arr.get(3);
-        vbodaGrade = Integer.parseInt(arr.get(4));
+
+        if(Integer.parseInt(arr.get(4)) == 0)
+        {
+            vbodaGrade = null;
+        }
+        else
+        {
+            vbodaGrade = Integer.parseInt(arr.get(4));
+        }
+
         notes = arr.get(5);
     }
 
@@ -125,7 +134,7 @@ public class Composition
         this.notes = notes;
     }
 
-    public ArrayList<String> toArray()
+    public ArrayList<String> toArrayList()
     {
         ArrayList<String> arr = new ArrayList<String>();
 

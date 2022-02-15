@@ -8,6 +8,7 @@ import src.backend.Composition;
 import src.backend.Library;
 
 import java.awt.BorderLayout;
+import java.awt.Window;
 import java.awt.event.*;
 import javax.swing.*;
 /**
@@ -43,7 +44,6 @@ public class EditFrame extends JPanel
     
     public EditFrame() {
         initComponents();
-        library = new Library();
     }
 
     /**
@@ -70,6 +70,8 @@ public class EditFrame extends JPanel
         notesLabel = new JLabel();
         addButton = new JButton();
         backButton = new JButton();
+
+        library = new Library();
 
         directions.setHorizontalAlignment(SwingConstants.CENTER);
         directions.setText("Enter information below to add a composition.");
@@ -110,7 +112,7 @@ public class EditFrame extends JPanel
             }
         });
 
-        vbodaGradeField.setText("");
+        vbodaGradeField.setText("0");
         vbodaGradeField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 vbodaGradeFieldActionPerformed(evt);
@@ -134,13 +136,17 @@ public class EditFrame extends JPanel
                 try {
                     addButtonActionPerformed(evt);
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
         });
 
         backButton.setText("Back");
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
 
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
@@ -248,11 +254,19 @@ public class EditFrame extends JPanel
 
     private void vbodaGradeFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_vbodaGradeFieldActionPerformed
         // TODO add your handling code here:
+        // Add error dialog if Integer > 6 or < 0
     }//GEN-LAST:event_vbodaGradeFieldActionPerformed
 
     private void notesFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_notesFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_notesFieldActionPerformed
+
+    private void backButtonActionPerformed(ActionEvent evt) 
+    {
+        JComponent comp = (JComponent)evt.getSource();
+        Window win = SwingUtilities.getWindowAncestor(comp);
+        win.dispose();
+    }
 
     private void addButtonActionPerformed(ActionEvent evt) throws Exception
     {
@@ -292,13 +306,15 @@ public class EditFrame extends JPanel
 
             @Override
             public void windowClosing(WindowEvent e) {
-                // TODO Auto-generated method stub
-                JFrame sframe = new JFrame("Do you want to save?");
+                // JFrame sframe = new JFrame("Do you want to save?");
 
-                sframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                sframe.getContentPane().add(new SavePrompt(library), BorderLayout.CENTER);
-                sframe.pack();
-                sframe.setVisible(true);
+                // sframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                // sframe.getContentPane().add(new SavePrompt(library), BorderLayout.CENTER);
+                // sframe.pack();
+                // sframe.setVisible(true);
+
+                SavePrompt sp = new SavePrompt(library);
+                sp.setVisible(true);
             }});
 
         //2. Optional: What happens when the frame closes?

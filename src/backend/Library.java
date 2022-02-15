@@ -95,6 +95,11 @@ public class Library extends ArrayList
         return metadata.indexOf(c);
     }
 
+    public int size()
+    {
+        return metadata.size();
+    }
+
     //Setters
     public void append(Composition c)
     {
@@ -135,7 +140,7 @@ public class Library extends ArrayList
         {
             XSSFRow row = sheet.createRow(rowid++);
             Composition c = metadata.get(i);
-            ArrayList<String> arr = c.toArray();
+            ArrayList<String> arr = c.toArrayList();
             int cellid = 0;
   
             for (int j = 0; j < 6; j++) // j == num of instance variables in a Composition
