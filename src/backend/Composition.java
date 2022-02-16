@@ -134,9 +134,23 @@ public class Composition
         this.notes = notes;
     }
 
-    public ArrayList<String> toArrayList()
+    public ArrayList<String> toStringArrayList()
     {
         ArrayList<String> arr = new ArrayList<String>();
+
+        arr.add(title);
+        arr.add(composer);
+        arr.add(arranger);
+        arr.add(publisher);
+        arr.add(vbodaGrade.toString());
+        arr.add(notes);
+
+        return arr;
+    }
+
+    public ArrayList<Object> toObjectArrayList()
+    {
+        ArrayList<Object> arr = new ArrayList<Object>();
 
         arr.add(title);
         arr.add(composer);

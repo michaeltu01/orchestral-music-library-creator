@@ -111,6 +111,16 @@ public class Library extends ArrayList
         metadata.add(index, c);
     }
 
+    public Composition remove(int index)
+    {
+        return metadata.remove(index);
+    }
+
+    public Composition remove(Composition c)
+    {
+        return metadata.remove(this.getIndex(c));
+    }
+
     //Instance Methods
     public ArrayList<Composition> sortByTitle() //Returns metadata sort alphabetically by title ascending (A-Z)
     {
@@ -140,7 +150,7 @@ public class Library extends ArrayList
         {
             XSSFRow row = sheet.createRow(rowid++);
             Composition c = metadata.get(i);
-            ArrayList<String> arr = c.toArrayList();
+            ArrayList<String> arr = c.toStringArrayList();
             int cellid = 0;
   
             for (int j = 0; j < 6; j++) // j == num of instance variables in a Composition

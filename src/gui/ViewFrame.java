@@ -68,7 +68,9 @@ public class ViewFrame extends JPanel {
                 titleFieldActionPerformed(evt);
             }
 
-            private void titleFieldActionPerformed(ActionEvent evt) {
+            private void titleFieldActionPerformed(ActionEvent evt) 
+            {
+                results.clear();
                 String input = titleField.getText();
         
                 for(int i = 0; i < library.size(); i++)
@@ -83,36 +85,8 @@ public class ViewFrame extends JPanel {
                 }
 
                 Object[][] data = new Object [results.size()][6];
-        
-                for(int i = 0; i < results.size(); i++)
-                {
-                    ArrayList<String> arr = results.get(i).toArrayList();
-                    for(int j = 0; j < 6; j++)
-                    {
-                        data[i][j] = arr.get(j);
-                    }
-                }
-
-                searchResults.setModel(new javax.swing.table.DefaultTableModel(data,
-                new String [] {"Title", "Composer", "Arranger", "Publisher", "VBODA Grade", "Notes"}) {
-                Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
-                };
-                boolean[] canEdit = new boolean [] {
-                    true, false, false, false, false, false
-                };
-    
-                public Class getColumnClass(int columnIndex) {
-                    return types [columnIndex];
-                }
-    
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit [columnIndex];
-                }
-                });
-                sp.setViewportView(searchResults);
-
-                results.clear();
+                retrieveData(data);
+                populateTable(data);
             }
         });
 
@@ -186,9 +160,17 @@ public class ViewFrame extends JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void deleteButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deleteButtonActionPerformed
+    private void deleteButtonActionPerformed(ActionEvent evt)
+    {
+        int row = searchResults.getSelectedRow();
+        Composition c = results.get(row);
+        results.remove(c);
+        library.remove(c);
+
+        Object[][] data = new Object[results.size()][6];
+        retrieveData(data);
+        populateTable(data);
+    }
 
     private void backButtonActionPerformed(ActionEvent evt) 
     {
@@ -200,6 +182,42 @@ public class ViewFrame extends JPanel {
     private void editButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void populateTable(Object[][] data)
+    {
+        searchResults.setModel(new javax.swing.table.DefaultTableModel(data,
+                new String [] {"Title", "Composer", "Arranger", "Publisher", "VBODA Grade", "Notes"}) {
+                Class[] types = new Class [] {
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                };
+                boolean[] canEdit = new boolean [] {
+                    true, false, false, false, false, false
+                };
+    
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+    
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+                });
+                sp.setViewportView(searchResults);
+    }
+
+    private Object[][] retrieveData(Object[][] data)
+    {
+        for(int i = 0; i < results.size(); i++)
+        {
+            ArrayList<String> arr = results.get(i).toStringArrayList();
+            for(int j = 0; j < 6; j++)
+            {
+                data[i][j] = arr.get(j);
+            }
+        }
+
+        return data;
+    }
 
     public static void main(String[] args)
     {
