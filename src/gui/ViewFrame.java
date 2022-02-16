@@ -102,12 +102,31 @@ public class ViewFrame extends JPanel {
             public void actionPerformed(ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
             }
+
+            private void deleteButtonActionPerformed(ActionEvent evt)
+            {
+                int row = searchResults.getSelectedRow();
+                Composition c = results.get(row);
+                results.remove(c);
+                library.remove(c);
+        
+                Object[][] data = new Object[results.size()][6];
+                retrieveData(data);
+                populateTable(data);
+            }
         });
 
         backButton.setText("Back");
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 backButtonActionPerformed(evt);
+            }
+
+            private void backButtonActionPerformed(ActionEvent evt) 
+            {
+                JComponent comp = (JComponent)evt.getSource();
+                Window win = SwingUtilities.getWindowAncestor(comp);
+                win.dispose();
             }
         });
 
@@ -159,25 +178,6 @@ public class ViewFrame extends JPanel {
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void deleteButtonActionPerformed(ActionEvent evt)
-    {
-        int row = searchResults.getSelectedRow();
-        Composition c = results.get(row);
-        results.remove(c);
-        library.remove(c);
-
-        Object[][] data = new Object[results.size()][6];
-        retrieveData(data);
-        populateTable(data);
-    }
-
-    private void backButtonActionPerformed(ActionEvent evt) 
-    {
-        JComponent comp = (JComponent)evt.getSource();
-        Window win = SwingUtilities.getWindowAncestor(comp);
-        win.dispose();
-    }
 
     private void editButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
