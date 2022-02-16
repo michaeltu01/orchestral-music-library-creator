@@ -121,6 +121,11 @@ public class Library extends ArrayList
         return metadata.remove(this.getIndex(c));
     }
 
+    public Composition replace(int index, Composition c)
+    {
+        return metadata.set(index, c);
+    }
+
     //Instance Methods
     public ArrayList<Composition> sortByTitle() //Returns metadata sort alphabetically by title ascending (A-Z)
     {

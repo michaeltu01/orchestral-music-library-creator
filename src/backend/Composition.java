@@ -18,8 +18,8 @@ public class Composition
         title = "";
         composer = "";
         arranger = "";
-        vbodaGrade = 0;
         publisher = "";
+        vbodaGrade = 0;
         notes = "";
     }
 
@@ -119,14 +119,14 @@ public class Composition
         this.arranger = arranger;
     }
 
-    public void setVbodaGrade(Integer vbodaGrade)
-    {
-        this.vbodaGrade = vbodaGrade;
-    }
-
     public void setPublisher(String publisher)
     {
         this.publisher = publisher;
+    }
+
+    public void setVbodaGrade(Integer vbodaGrade)
+    {
+        this.vbodaGrade = vbodaGrade;
     }
 
     public void setNotes(String notes)
@@ -163,6 +163,7 @@ public class Composition
     }
 
     //toString
+    // BUG: Make into better format
     public String toString()
     {
         return title + ", " +

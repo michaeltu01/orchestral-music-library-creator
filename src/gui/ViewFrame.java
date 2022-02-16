@@ -95,6 +95,39 @@ public class ViewFrame extends JPanel {
             public void actionPerformed(ActionEvent evt) {
                 editButtonActionPerformed(evt);
             }
+
+            private void editButtonActionPerformed(ActionEvent evt) 
+            {
+                Thread thread = new Thread()
+                {
+                    @Override
+                    public void run()
+                    {
+                        int row = searchResults.getSelectedRow();
+                        Composition c = results.get(row);
+                        int index = library.getIndex(c);
+
+                        EditFrame ef = new EditFrame(c, index);
+                        JFrame frame = new JFrame("Edit composition");
+
+                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame.getContentPane().add(ef, BorderLayout.CENTER);
+                        frame.pack();
+                        frame.setVisible(true);
+
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        Object[][] data = new Object [results.size()][6];
+                        retrieveData(data);
+                        populateTable(data);
+                    }
+                };
+                thread.start();
+            }
         });
 
         deleteButton.setText("Delete");
@@ -179,10 +212,6 @@ public class ViewFrame extends JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void editButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_backButtonActionPerformed
-
     private void populateTable(Object[][] data)
     {
         searchResults.setModel(new javax.swing.table.DefaultTableModel(data,
@@ -191,7 +220,7 @@ public class ViewFrame extends JPanel {
                     java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
                 };
                 boolean[] canEdit = new boolean [] {
-                    true, false, false, false, false, false
+                    false, false, false, false, false, false
                 };
     
                 public Class getColumnClass(int columnIndex) {

@@ -46,6 +46,11 @@ public class EditFrame extends JPanel
         initComponents();
     }
 
+    public EditFrame(Composition c, int index)
+    {
+        vfComponents(c, index);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,52 +88,26 @@ public class EditFrame extends JPanel
             public void actionPerformed(ActionEvent evt) {
                 titleFieldActionPerformed(evt);
             }
+
+            private void titleFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_titleFieldActionPerformed
+                // TODO add your handling code here:
+            }//GEN-LAST:event_titleFieldActionPerformed
         });
 
         composerLabel.setText("Composer:");
-
         composerField.setText("");
-        composerField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                composerFieldActionPerformed(evt);
-            }
-        });
 
         arrangerLabel.setText("Arranger: ");
-
         arrangerField.setText("");
-        arrangerField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                arrangerFieldActionPerformed(evt);
-            }
-        });
 
         publisherLabel.setText("Publisher:");
-
         publisherField.setText("");
-        publisherField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                publisherFieldActionPerformed(evt);
-            }
-        });
-
-        vbodaGradeField.setText("0");
-        vbodaGradeField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                vbodaGradeFieldActionPerformed(evt);
-            }
-        });
 
         vbodaGradeLabel.setText("VBODA Grade: ");
-
-        notesField.setText("");
-        notesField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                notesFieldActionPerformed(evt);
-            }
-        });
+        vbodaGradeField.setText("0");
 
         notesLabel.setText("Notes:");
+        notesField.setText("");        
 
         addButton.setText("Add");
         addButton.addActionListener(new ActionListener() {
@@ -139,12 +118,39 @@ public class EditFrame extends JPanel
                     e.printStackTrace();
                 }
             }
+
+            private void addButtonActionPerformed(ActionEvent evt) throws Exception
+            {
+                Composition c = new Composition(titleField.getText(),
+                                                    composerField.getText(),
+                                                    arrangerField.getText(),
+                                                    publisherField.getText(),
+                                                    Integer.parseInt(vbodaGradeField.getText()),
+                                                    notesField.getText());
+                library.append(c);
+                library.sortByTitle();
+        
+                EditSummaryFrame esFrame = new EditSummaryFrame(c, library);
+                JFrame frame = new JFrame("EditConfirmationFrame");
+        
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.getContentPane().add(esFrame, BorderLayout.CENTER);
+                frame.pack();
+                frame.setVisible(true);
+            }
         });
 
         backButton.setText("Back");
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 backButtonActionPerformed(evt);
+            }
+
+            private void backButtonActionPerformed(ActionEvent evt) 
+            {
+                JComponent comp = (JComponent)evt.getSource();
+                Window win = SwingUtilities.getWindowAncestor(comp);
+                win.dispose();
             }
         });
 
@@ -234,72 +240,204 @@ public class EditFrame extends JPanel
                     .addComponent(backButton))
                 .addContainerGap())
         );
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void titleFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_titleFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_titleFieldActionPerformed
-
-    private void composerFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_composerFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_composerFieldActionPerformed
-
-    private void arrangerFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_arrangerFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_arrangerFieldActionPerformed
-
-    private void publisherFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_publisherFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_publisherFieldActionPerformed
-
-    private void vbodaGradeFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_vbodaGradeFieldActionPerformed
-        // TODO add your handling code here:
-        // Add error dialog if Integer > 6 or < 0
-    }//GEN-LAST:event_vbodaGradeFieldActionPerformed
-
-    private void notesFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_notesFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_notesFieldActionPerformed
-
-    private void backButtonActionPerformed(ActionEvent evt) 
-    {
-        JComponent comp = (JComponent)evt.getSource();
-        Window win = SwingUtilities.getWindowAncestor(comp);
-        win.dispose();
     }
 
-    private void addButtonActionPerformed(ActionEvent evt) throws Exception
-    {
-        Composition c = new Composition(titleField.getText(),
-                                            composerField.getText(),
-                                            arrangerField.getText(),
-                                            publisherField.getText(),
-                                            Integer.parseInt(vbodaGradeField.getText()),
-                                            notesField.getText());
-        library.append(c);
-        library.sortByTitle();
+    private void vfComponents(Composition edit, int index) {
 
-        EditSummaryFrame esFrame = new EditSummaryFrame(c, library);
+        directions = new JLabel();
+        titleLabel = new JLabel();
+        titleField = new JTextField();
+        composerLabel = new JLabel();
+        composerField = new JTextField();
+        arrangerLabel = new JLabel();
+        arrangerField = new JTextField();
+        publisherLabel = new JLabel();
+        publisherField = new JTextField();
+        vbodaGradeField = new JTextField();
+        vbodaGradeLabel = new JLabel();
+        notesField = new JTextField();
+        notesLabel = new JLabel();
+        addButton = new JButton();
+        backButton = new JButton();
 
-        //1. Create the frame.
-        JFrame frame = new JFrame("EditConfirmationFrame");
+        library = new Library();
 
-        //2. Optional: What happens when the frame closes?
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        directions.setHorizontalAlignment(SwingConstants.CENTER);
+        directions.setText("Edit the composition below.");
 
-        //3. Create your panel and put it in the frame.
-        frame.getContentPane().add(esFrame, BorderLayout.CENTER);
+        titleLabel.setText("Title:");
 
-        //4. Size the frame.
-        frame.pack();
+        titleField.setText(edit.getTitle());
+        titleField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                titleFieldActionPerformed(evt);
+            }
 
-        //5. Show it.
-        frame.setVisible(true);
+            private void titleFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_titleFieldActionPerformed
+                // TODO add your handling code here:
+            }//GEN-LAST:event_titleFieldActionPerformed
+        });
+
+        composerLabel.setText("Composer:");
+        composerField.setText(edit.getComposer());
+
+        arrangerLabel.setText("Arranger: ");
+        arrangerField.setText(edit.getArranger());
+
+        publisherLabel.setText("Publisher:");
+        publisherField.setText(edit.getPublisher());
+
+        vbodaGradeLabel.setText("VBODA Grade: ");
+        vbodaGradeField.setText(edit.getVbodaGrade().toString());
+
+        notesLabel.setText("Notes:");
+        notesField.setText(edit.getNotes());        
+
+        addButton.setText("Save");
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                try {
+                    addButtonActionPerformed(evt);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            private void addButtonActionPerformed(ActionEvent evt) throws Exception
+            {
+                Composition c = new Composition(titleField.getText(),
+                                                            composerField.getText(),
+                                                            arrangerField.getText(),
+                                                            publisherField.getText(),
+                                                            Integer.parseInt(vbodaGradeField.getText()),
+                                                            notesField.getText());
+                Thread thread = new Thread()
+                {
+                    @Override
+                    public void run()
+                    {                        
+                        library.replace(index, c);
+                        library.sortByTitle();
+                        System.out.println(library);
+                        notify();
+                    }
+                };
+                thread.start();
+
+                EditSummaryFrame esFrame = new EditSummaryFrame(c, library);
+                JFrame frame = new JFrame("EditConfirmationFrame");
+        
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.getContentPane().add(esFrame, BorderLayout.CENTER);
+                frame.pack();
+                frame.setVisible(true);
+            }
+        });
+
+        backButton.setText("Cancel");
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+
+            private void backButtonActionPerformed(ActionEvent evt) 
+            {
+                JComponent comp = (JComponent)evt.getSource();
+                Window win = SwingUtilities.getWindowAncestor(comp);
+                win.dispose();
+            }
+        });
+
+        GroupLayout layout = new GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(89, 89, 89)
+                                .addComponent(directions))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(vbodaGradeLabel)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(vbodaGradeField, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(notesLabel)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(notesField, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(composerLabel)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(composerField))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(titleLabel)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(titleField, GroupLayout.PREFERRED_SIZE, 371, GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(arrangerLabel)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(arrangerField, GroupLayout.PREFERRED_SIZE, 345, GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(publisherLabel)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(publisherField, GroupLayout.PREFERRED_SIZE, 347, GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 40, Short.MAX_VALUE))
+                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(addButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(backButton)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(directions)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(titleLabel)
+                    .addComponent(titleField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(composerLabel)
+                    .addComponent(composerField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(arrangerLabel)
+                    .addComponent(arrangerField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(publisherLabel)
+                    .addComponent(publisherField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(vbodaGradeLabel)
+                    .addComponent(vbodaGradeField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(notesLabel)
+                    .addComponent(notesField, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(addButton)
+                    .addComponent(backButton))
+                .addContainerGap())
+        );
     }
 
     public static void main(String[] args)
     {
-        //1. Create the frame.
         JFrame frame = new JFrame("EditFrame");
 
         frame.addWindowListener(new WindowAdapter(){
@@ -317,16 +455,9 @@ public class EditFrame extends JPanel
                 sp.setVisible(true);
             }});
 
-        //2. Optional: What happens when the frame closes?
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //3. Create your panel and put it in the frame.
         frame.getContentPane().add(new EditFrame(), BorderLayout.CENTER);
-
-        //4. Size the frame.
         frame.pack();
-
-        //5. Show it.
         frame.setVisible(true);
     }
 }
