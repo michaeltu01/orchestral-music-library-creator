@@ -275,6 +275,7 @@ public class EditFrame extends JPanel
 
             private void titleFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_titleFieldActionPerformed
                 // TODO add your handling code here:
+                // Add search function here OR on a different frame
             }//GEN-LAST:event_titleFieldActionPerformed
         });
 
@@ -305,24 +306,19 @@ public class EditFrame extends JPanel
 
             private void addButtonActionPerformed(ActionEvent evt) throws Exception
             {
+
                 Composition c = new Composition(titleField.getText(),
                                                             composerField.getText(),
                                                             arrangerField.getText(),
                                                             publisherField.getText(),
                                                             Integer.parseInt(vbodaGradeField.getText()),
                                                             notesField.getText());
-                Thread thread = new Thread()
-                {
-                    @Override
-                    public void run()
-                    {                        
-                        library.replace(index, c);
-                        library.sortByTitle();
-                        System.out.println(library);
-                        notify();
-                    }
-                };
-                thread.start();
+                library.replace(index, c);
+                library.sortByTitle();
+
+                ViewFrame.pullResults();
+                Object[][] data = new Object [ViewFrame.numSearchResults()][6];
+                ViewFrame.populateTable(ViewFrame.retrieveData(data));
 
                 EditSummaryFrame esFrame = new EditSummaryFrame(c, library);
                 JFrame frame = new JFrame("EditConfirmationFrame");

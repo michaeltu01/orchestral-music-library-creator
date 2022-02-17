@@ -129,16 +129,17 @@ public class Library extends ArrayList
     //Instance Methods
     public ArrayList<Composition> sortByTitle() //Returns metadata sort alphabetically by title ascending (A-Z)
     {
-        for (int j = 1; j < metadata.size(); j++)
+        for (int j = 0; j < metadata.size(); j++)
         {
-            String current = metadata.get(j).getTitle();
+            Composition curr = metadata.get(j);
+            String currtitle = curr.getTitle();
             int i = j-1;
-            while ((i > -1) && (metadata.get(i).getTitle().compareTo(current) > 0))
+            while ((i > -1) && (metadata.get(i).getTitle().compareTo(currtitle) > 0))
             {
-                metadata.get(i+1).setTitle(metadata.get(i).getTitle());
+                this.replace(i+1, this.getComposition(i));
                 i--;
             }
-            metadata.get(i+1).setTitle(current);
+            this.replace(i+1, curr);
         }
 
         return metadata;
