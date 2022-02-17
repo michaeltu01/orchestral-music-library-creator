@@ -42,13 +42,13 @@ public class EditFrame extends JPanel
      */
     
     
-    public EditFrame() {
-        initComponents();
+    public EditFrame(Library l) {
+        initComponents(l);
     }
 
-    public EditFrame(Composition c, int index)
+    public EditFrame(Library l, Composition c, int index)
     {
-        vfComponents(c, index);
+        vfComponents(l, c, index);
     }
 
     /**
@@ -58,7 +58,7 @@ public class EditFrame extends JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(Library l) {
 
         directions = new JLabel();
         titleLabel = new JLabel();
@@ -76,7 +76,7 @@ public class EditFrame extends JPanel
         addButton = new JButton();
         backButton = new JButton();
 
-        library = new Library();
+        library = l;
 
         directions.setHorizontalAlignment(SwingConstants.CENTER);
         directions.setText("Enter information below to add a composition.");
@@ -242,7 +242,7 @@ public class EditFrame extends JPanel
         );
     }
 
-    private void vfComponents(Composition edit, int index) {
+    private void vfComponents(Library l, Composition edit, int index) {
 
         directions = new JLabel();
         titleLabel = new JLabel();
@@ -260,7 +260,7 @@ public class EditFrame extends JPanel
         addButton = new JButton();
         backButton = new JButton();
 
-        library = new Library();
+        library = l;
 
         directions.setHorizontalAlignment(SwingConstants.CENTER);
         directions.setText("Edit the composition below.");
@@ -452,7 +452,7 @@ public class EditFrame extends JPanel
             }});
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(new EditFrame(), BorderLayout.CENTER);
+        frame.getContentPane().add(new EditFrame(library), BorderLayout.CENTER);
         frame.pack();
         frame.setVisible(true);
     }

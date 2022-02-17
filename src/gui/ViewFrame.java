@@ -33,8 +33,8 @@ public class ViewFrame extends JPanel {
     /**
      * Creates new form ViewFrame
      */
-    public ViewFrame() {
-        initComponents();
+    public ViewFrame(Library l) {
+        initComponents(l);
     }
 
     /**
@@ -44,7 +44,7 @@ public class ViewFrame extends JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(Library l) {
 
         directions = new JLabel();
         titleLabel = new JLabel();
@@ -55,7 +55,7 @@ public class ViewFrame extends JPanel {
         sp = new JScrollPane();
         searchResults = new JTable();
         
-        library = new Library();
+        library = l;
         results = new ArrayList<Composition>();
 
         directions.setHorizontalAlignment(SwingConstants.CENTER);
@@ -89,7 +89,7 @@ public class ViewFrame extends JPanel {
                 Composition c = results.get(row);
                 int index = library.getIndex(c);
 
-                EditFrame ef = new EditFrame(c, index);
+                EditFrame ef = new EditFrame(library, c, index);
                 JFrame frame = new JFrame("Edit composition");
 
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -244,7 +244,7 @@ public class ViewFrame extends JPanel {
     {
         JFrame frame = new JFrame("ViewFrame");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.getContentPane().add(new ViewFrame(), BorderLayout.CENTER);
+        frame.getContentPane().add(new ViewFrame(library), BorderLayout.CENTER);
         frame.pack();
         frame.setVisible(true);
     }
