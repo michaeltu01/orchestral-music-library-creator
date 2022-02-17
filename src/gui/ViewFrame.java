@@ -22,9 +22,9 @@ public class ViewFrame extends JPanel {
     private JButton deleteButton;
     private JLabel directions;
     private JButton editButton;
-    private JTable searchResults;
-    private JScrollPane sp;
-    private JTextField titleField;
+    private static JTable searchResults;
+    private static JScrollPane sp;
+    private static JTextField titleField;
     private JLabel titleLabel;
 
     private static Library library;
@@ -70,19 +70,21 @@ public class ViewFrame extends JPanel {
 
             private void titleFieldActionPerformed(ActionEvent evt) 
             {
-                results.clear();
-                String input = titleField.getText();
+                pullResults();
+
+                // results.clear();
+                // String input = titleField.getText();
         
-                for(int i = 0; i < library.size(); i++)
-                {
-                    Composition c = library.getComposition(i);
-                    String title = c.getTitle();
+                // for(int i = 0; i < library.size(); i++)
+                // {
+                //     Composition c = library.getComposition(i);
+                //     String title = c.getTitle();
         
-                    if(input.equals(title))
-                    {
-                        results.add(c);
-                    }
-                }
+                //     if(input.equals(title))
+                //     {
+                //         results.add(c);
+                //     }
+                // }
 
                 Object[][] data = new Object [results.size()][6];
                 retrieveData(data);
@@ -98,35 +100,50 @@ public class ViewFrame extends JPanel {
 
             private void editButtonActionPerformed(ActionEvent evt) 
             {
-                Thread thread = new Thread()
-                {
-                    @Override
-                    public void run()
-                    {
-                        int row = searchResults.getSelectedRow();
-                        Composition c = results.get(row);
-                        int index = library.getIndex(c);
+                // Thread thread = new Thread()
+                // {
+                //     @Override
+                //     public void run()
+                //     {
+                //         int row = searchResults.getSelectedRow();
+                //         Composition c = results.get(row);
+                //         int index = library.getIndex(c);
 
-                        EditFrame ef = new EditFrame(c, index);
-                        JFrame frame = new JFrame("Edit composition");
+                //         EditFrame ef = new EditFrame(c, index);
+                //         JFrame frame = new JFrame("Edit composition");
 
-                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        frame.getContentPane().add(ef, BorderLayout.CENTER);
-                        frame.pack();
-                        frame.setVisible(true);
+                //         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                //         frame.getContentPane().add(ef, BorderLayout.CENTER);
+                //         frame.pack();
+                //         frame.setVisible(true);
 
-                        try {
-                            wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                //         try {
+                //             wait();
+                //         } catch (InterruptedException e) {
+                //             e.printStackTrace();
+                //         }
 
-                        Object[][] data = new Object [results.size()][6];
-                        retrieveData(data);
-                        populateTable(data);
-                    }
-                };
-                thread.start();
+                //         Object[][] data = new Object [results.size()][6];
+                //         retrieveData(data);
+                //         populateTable(data);
+                //     }
+                // };
+                // thread.start();
+
+                int row = searchResults.getSelectedRow();
+                System.out.println("Row: " + row);
+                Composition c = results.get(row);
+                System.out.println("Composition retrieved: " + c);
+                int index = library.getIndex(c);
+                System.out.println("Index: " + index);
+
+                EditFrame ef = new EditFrame(c, index);
+                JFrame frame = new JFrame("Edit composition");
+
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.getContentPane().add(ef, BorderLayout.CENTER);
+                frame.pack();
+                frame.setVisible(true);
             }
         });
 
@@ -144,8 +161,7 @@ public class ViewFrame extends JPanel {
                 library.remove(c);
         
                 Object[][] data = new Object[results.size()][6];
-                retrieveData(data);
-                populateTable(data);
+                populateTable(retrieveData(data));
             }
         });
 
@@ -212,7 +228,31 @@ public class ViewFrame extends JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void populateTable(Object[][] data)
+    public static int numSearchResults()
+    {
+        return results.size();
+    }
+
+    public static ArrayList<Composition> pullResults()
+    {
+        results.clear();
+        String input = titleField.getText();
+        
+                for(int i = 0; i < library.size(); i++)
+                {
+                    Composition c = library.getComposition(i);
+                    String title = c.getTitle();
+        
+                    if(input.equals(title))
+                    {
+                        results.add(c);
+                    }
+                }
+
+        return results;
+    }
+
+    public static void populateTable(Object[][] data)
     {
         searchResults.setModel(new javax.swing.table.DefaultTableModel(data,
                 new String [] {"Title", "Composer", "Arranger", "Publisher", "VBODA Grade", "Notes"}) {
@@ -234,7 +274,7 @@ public class ViewFrame extends JPanel {
                 sp.setViewportView(searchResults);
     }
 
-    private Object[][] retrieveData(Object[][] data)
+    public static Object[][] retrieveData(Object[][] data)
     {
         for(int i = 0; i < results.size(); i++)
         {
