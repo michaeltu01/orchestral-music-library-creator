@@ -10,6 +10,7 @@ import java.nio.file.LinkOption;
 import java.util.Iterator;  
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -43,45 +44,7 @@ public class Library extends ArrayList
             }  
         }
 
-        try
-        {
-            // Copied from https://www.javatpoint.com/how-to-read-excel-file-in-java
-            FileInputStream fis = new FileInputStream(f);   //obtaining bytes from the file  
-            wb = new XSSFWorkbook(fis); //creating Workbook instance that refers to .xlsx file
-            sheet = wb.getSheetAt(0);     //creating a Sheet object to retrieve object  
-
-            Iterator<Row> itr = sheet.iterator();    //iterating over excel file
-
-            while (itr.hasNext())                 
-            {  
-                Row row = itr.next();  
-                Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column  
-                ArrayList<String> arr = new ArrayList<String>();    //individiual composition metadata
-
-                while (cellIterator.hasNext())   
-                {  
-                    Cell cell = cellIterator.next();  
-                    switch (cell.getCellType())               
-                    {  
-                        case Cell.CELL_TYPE_STRING:    //field that represents string cell type  
-                            arr.add(cell.getStringCellValue());  
-                            break;
-                        case Cell.CELL_TYPE_NUMERIC:    //field that represents number cell type  
-                            arr.add(String.valueOf(cell.getNumericCellValue()));  
-                            break;
-                        default:
-                            System.out.println("This is the default operation"); 
-                    }  
-                }
-                Composition c = new Composition(arr);
-                metadata.add(c);
-            }
-        }
-
-        catch(Exception e)  
-        {  
-            e.printStackTrace();  
-        }
+        read(f);
     }
 
     //Getters
@@ -126,6 +89,11 @@ public class Library extends ArrayList
         return metadata.set(index, c);
     }
 
+    public void clear()
+    {
+        metadata.clear();
+    }
+
     //Instance Methods
     public ArrayList<Composition> sortByTitle() //Returns metadata sort alphabetically by title ascending (A-Z)
     {
@@ -143,6 +111,69 @@ public class Library extends ArrayList
         }
 
         return metadata;
+    }
+
+    public static void read(File xlsx)
+    {
+        metadata.clear();
+        try
+        {
+            // Copied from https://www.javatpoint.com/how-to-read-excel-file-in-java
+            FileInputStream fis = new FileInputStream(xlsx);   //obtaining bytes from the file  
+            wb = new XSSFWorkbook(fis); //creating Workbook instance that refers to .xlsx file
+            sheet = wb.getSheetAt(0);     //creating a Sheet object to retrieve object  
+
+            Iterator<Row> itr = sheet.iterator();    //iterating over excel file
+
+            while (itr.hasNext())                 
+            {  
+                Row row = itr.next();  
+                Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column  
+                ArrayList<String> arr = new ArrayList<String>();    //individiual composition metadata
+
+                // while (cellIterator.hasNext())
+                for(int i = 0; i < 6; i++)  
+                {  
+                    Cell cell = row.getCell(i);
+
+                    try
+                    {
+                        if(cell.equals(null))  //BUG: NullPointerException
+                        {
+                            cell.setCellType(CellType.BLANK);
+                        }
+                    }
+                    catch(NullPointerException e)
+                    {
+                        cell.setCellValue("");
+                    }
+
+                    switch (cell.getCellTypeEnum())               
+                    {  
+                        case STRING:    //field that represents string cell type  
+                            arr.add(cell.getStringCellValue());  
+                            break;
+                        case NUMERIC:    //field that represents number cell type  
+                            arr.add(String.valueOf((int)cell.getNumericCellValue()));  
+                            break;
+                        case BLANK:
+                            arr.add(null);
+                            break;
+                        default:
+                            System.out.println("This is the default operation");
+                            System.out.println("This is the cell's type: " + cell.getCellTypeEnum());
+                    }
+                    System.out.println(arr);
+                }
+                Composition c = new Composition(arr);
+                metadata.add(c);
+            }
+        }
+
+        catch(Exception e)  
+        {  
+            e.printStackTrace();  
+        }
     }
 
     public static void write(File xlsx) throws Exception

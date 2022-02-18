@@ -18,9 +18,10 @@ import src.backend.Library;
  */
 public class ViewFrame extends JPanel {
 
+    private JLabel directions;
     private JButton backButton;
     private JButton deleteButton;
-    private JLabel directions;
+    private JButton clearLibraryButton;
     private JButton editButton;
     private static JTable searchResults;
     private static JScrollPane sp;
@@ -54,6 +55,7 @@ public class ViewFrame extends JPanel {
         backButton = new JButton();
         sp = new JScrollPane();
         searchResults = new JTable();
+        clearLibraryButton = new JButton();
         
         library = l;
         results = new ArrayList<Composition>();
@@ -74,6 +76,28 @@ public class ViewFrame extends JPanel {
                 Object[][] data = new Object [results.size()][6];
                 retrieveData(data);
                 populateTable(data);
+            }
+        });
+
+        clearLibraryButton.setText("Clear Library");
+        clearLibraryButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt)
+            {
+                clearLibraryButtonActionPerformed(evt);
+            }
+
+            private void clearLibraryButtonActionPerformed(ActionEvent evt)
+            {
+                library.clear();
+                library.toString();
+
+                JDialog dialog = new JDialog();
+                JLabel confMessage = new JLabel("Library has been cleared. Confirm your save upon closing the application.");
+
+                dialog.add(confMessage);
+                dialog.pack();
+                dialog.setVisible(true);
+
             }
         });
 
@@ -152,7 +176,9 @@ public class ViewFrame extends JPanel {
                                 .addComponent(directions)))
                         .addGap(0, 13, Short.MAX_VALUE))
                     .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(clearLibraryButton)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(editButton)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteButton)
@@ -175,7 +201,8 @@ public class ViewFrame extends JPanel {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(editButton)
                     .addComponent(deleteButton)
-                    .addComponent(backButton))
+                    .addComponent(backButton)
+                    .addComponent(clearLibraryButton))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
