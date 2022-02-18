@@ -94,8 +94,10 @@ public class ViewFrame extends JPanel {
                 JDialog dialog = new JDialog();
                 JLabel confMessage = new JLabel("Library has been cleared. Confirm your save upon closing the application.");
 
+                confMessage.setHorizontalAlignment(JLabel.CENTER);
                 dialog.add(confMessage);
-                dialog.pack();
+                dialog.setSize(500, 100);
+                dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
 
             }
