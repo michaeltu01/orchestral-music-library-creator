@@ -24,7 +24,7 @@ public class Library extends ArrayList
 
     private static XSSFWorkbook wb;
     private static XSSFSheet sheet;
-    private static final File f = new File("C:/Users/Michael Tu/Desktop/Code/IA/Data.xlsx");
+    private static final File f = new File("C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx");
 
     //Constructor
     public Library()
@@ -35,7 +35,7 @@ public class Library extends ArrayList
         {
             try 
             { 
-            FileOutputStream fileOut = new FileOutputStream("C:/Users/Michael Tu/Desktop/Code/IA/Data.xlsx");  //BUG: File created with no bytes
+            FileOutputStream fileOut = new FileOutputStream("C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx");  //BUG: File created with no bytes
             fileOut.close();  
             } 
             catch (Exception e) 
@@ -130,23 +130,34 @@ public class Library extends ArrayList
                 Row row = itr.next();  
                 Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column  
                 ArrayList<String> arr = new ArrayList<String>();    //individiual composition metadata
+                int rowLength = row.getPhysicalNumberOfCells();
 
                 // while (cellIterator.hasNext())
+                System.out.println("getPhysicalNumberOfCells(): " + rowLength);
+                if(rowLength < 6)
+                {
+                    for(int i = rowLength; i < 6; i++)
+                    {
+                        row.createCell(i);
+                        System.out.println("Physical number of cells: " + row.getPhysicalNumberOfCells());
+                    }
+                }
+
                 for(int i = 0; i < 6; i++)  
                 {  
                     Cell cell = row.getCell(i);
 
-                    try
-                    {
-                        if(cell.equals(null))  //BUG: NullPointerException
-                        {
-                            cell.setCellType(CellType.BLANK);
-                        }
-                    }
-                    catch(NullPointerException e)
-                    {
-                        cell.setCellValue("");
-                    }
+                    // try
+                    // {
+                    //     if(cell.equals(null))  //BUG: NullPointerException
+                    //     {
+                    //         cell.setCellType(CellType.BLANK);
+                    //     }
+                    // }
+                    // catch(NullPointerException e)
+                    // {
+                    //     cell.setCellValue("");
+                    // }
 
                     switch (cell.getCellTypeEnum())               
                     {  

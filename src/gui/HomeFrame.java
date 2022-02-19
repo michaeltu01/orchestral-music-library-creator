@@ -123,9 +123,18 @@ public class HomeFrame extends JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void importButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_importButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_importButtonActionPerformed
+    private void importButtonActionPerformed(ActionEvent evt) 
+    {
+        ImportFrame impF = new ImportFrame(library);
+        JFrame frame = new JFrame("Import Composition");
+
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.getContentPane().add(impF, BorderLayout.CENTER);
+        frame.pack();
+        frame.setVisible(true);
+
+        // System.out.println(library);
+    }
 
     private void addButtonActionPerformed(ActionEvent evt) 
     {
@@ -135,17 +144,19 @@ public class HomeFrame extends JPanel {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(ef, BorderLayout.CENTER);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
     private void viewButtonActionPerformed(ActionEvent evt) 
     {
         ViewFrame vf = new ViewFrame(library);
-        JFrame frame = new JFrame("View Composition");
+        JFrame frame = new JFrame("View Library");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(vf, BorderLayout.CENTER);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
@@ -161,13 +172,6 @@ public class HomeFrame extends JPanel {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                // JFrame sframe = new JFrame("Do you want to save?");
-
-                // sframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                // sframe.getContentPane().add(new SavePrompt(library), BorderLayout.CENTER);
-                // sframe.pack();
-                // sframe.setVisible(true);
-
                 SavePrompt sp = new SavePrompt(library);
                 sp.setVisible(true);
             }});

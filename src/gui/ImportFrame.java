@@ -12,16 +12,14 @@ import java.awt.*;
 import src.backend.Library;
 import src.backend.Composition;
 
-public class SavePrompt extends JPanel { // https://stackoverflow.com/a/23143716 
+public class ImportFrame extends JPanel { // https://stackoverflow.com/a/23143716 
 
-    private static JFrame saveFrame;
-    private static JPanel SPanel;
+    private static JFrame importFrame;
+    private static JPanel IPanel;
     private static JFileChooser jfc;
     private static Library library;
 
-    private static final File f = new File("C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx");
-
-    public SavePrompt(Library l)
+    public ImportFrame(Library l)
     {
         library = l;
 
@@ -36,33 +34,32 @@ public class SavePrompt extends JPanel { // https://stackoverflow.com/a/23143716
 
     private void initComponents() throws IOException, FileNotFoundException
     {
-        saveFrame = new JFrame();
-        // SPanel = new JPanel();
+        importFrame = new JFrame();
+        // IPanel = new JPanel();
         jfc = new JFileChooser();
 
-        jfc.setCurrentDirectory(f);
+        String fullPath = "C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx";
+        // String unzippedPath = fullPath.substring(0, fullPath.length() - 5);
+
+        jfc.setCurrentDirectory(new File(fullPath));
         jfc.setSelectedFile(new File("Database.xlsx"));
-        jfc.setApproveButtonText("Save");
+        jfc.setApproveButtonText("Import");
     
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
     
         int result = jfc.showSaveDialog(null);
         if(result == JFileChooser.APPROVE_OPTION)
         {
-            // System.out.println(jfc.getSelectedFile().toString());
-            // if(jfc.getSelectedFile().toString().equals("C:\\Users\\Michael Tu\\Desktop\\Code\\IA\\Database.xlsx"))
+            // if(jfc.getSelectedFile().toString().equals("C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx"))
             // {
             //     JDialog error = new JDialog();
             //     JLabel message = new JLabel();
 
             //     message.setText("You can't choose this file.");
-            //     error.add(message);
-            //     error.setSize(300, 100);
-            //     error.setLocationRelativeTo(null);
-            //     error.setVisible(true);
+            //     error.setContentPane(message);
             // }
 
-            File out = new File(jfc.getSelectedFile().toString());
+            File in = new File(jfc.getSelectedFile().getAbsolutePath());
             // System.out.println(out.getAbsolutePath());
             // int BUF_SIZE = (int) in.length();
     
@@ -82,35 +79,29 @@ public class SavePrompt extends JPanel { // https://stackoverflow.com/a/23143716
             //     if(fiss != null) fiss.close();
             //     if(foss != null) foss.close();
             // }
-            // saveFrame.setVisible(false);
+            // importFrame.setVisible(false);
 
-            //Implement overwriting Database.xlsx
+            //Implement read from Database.xlsx
+
             try {
-                if(f.equals(out))
-                {
-                    Library.write(out);
-                }
-                else
-                {
-                    Library.write(f);
-                    Library.write(out);
-                }
+                Library.read(in);
             } catch(Exception e) {
                 e.printStackTrace();
             }
+
         }
         else if(result == JFileChooser.CANCEL_OPTION){
-            saveFrame.setVisible(false);
+            importFrame.setVisible(false);
         }
     
-        // SPanel.setLayout(new FlowLayout());
-        // SPanel.add(jfc);
+        // IPanel.setLayout(new FlowLayout());
+        // IPanel.add(jfc);
     
-        // saveFrame.setLayout(new FlowLayout());
-        // saveFrame.add(SPanel);
-        // saveFrame.pack();
-        // saveFrame.setTitle("Save your Doc");
-        // saveFrame.setLocationRelativeTo(null);
-        // saveFrame.setVisible(true);
+        // importFrame.setLayout(new FlowLayout());
+        // importFrame.add(IPanel);
+        // importFrame.pack();
+        // importFrame.setTitle("Save your Doc");
+        // importFrame.setLocationRelativeTo(null);
+        // importFrame.setVisible(true);
     }
 }
