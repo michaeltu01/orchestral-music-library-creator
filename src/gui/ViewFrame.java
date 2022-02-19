@@ -72,7 +72,7 @@ public class ViewFrame extends JPanel {
 
             private void titleFieldActionPerformed(ActionEvent evt) 
             {
-                results = pullResults();
+                pullResults();
                 Object[][] data = new Object [results.size()][6];
                 retrieveData(data);
                 populateTable(data);
@@ -216,9 +216,7 @@ public class ViewFrame extends JPanel {
 
     public static ArrayList<Composition> pullResults()
     {
-        // results.clear();
-
-        ArrayList<Composition> arr = new ArrayList<Composition>();
+        results.clear();
         String input = titleField.getText();
         
         if(input.equals("")) // Shows all compositions in the Library
@@ -234,7 +232,7 @@ public class ViewFrame extends JPanel {
 
                 if(vbodaGrade == 0)
                 {
-                    arr.add(c);
+                    results.add(c);
                 }
             }
         }
@@ -247,11 +245,11 @@ public class ViewFrame extends JPanel {
 
                 if(input.equals(title))
                 {
-                    arr.add(c);
+                    results.add(c);
                 }
             }
         }
-        return arr;
+        return results;
     }
 
     public static void populateTable(Object[][] data)

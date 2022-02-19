@@ -136,6 +136,7 @@ public class EditFrame extends JPanel
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.getContentPane().add(esFrame, BorderLayout.CENTER);
                 frame.pack();
+                frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
             }
         });
