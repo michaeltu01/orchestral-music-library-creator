@@ -72,7 +72,7 @@ public class ViewFrame extends JPanel {
 
             private void titleFieldActionPerformed(ActionEvent evt) 
             {
-                pullResults();
+                results = pullResults();
                 Object[][] data = new Object [results.size()][6];
                 retrieveData(data);
                 populateTable(data);
@@ -216,21 +216,42 @@ public class ViewFrame extends JPanel {
 
     public static ArrayList<Composition> pullResults()
     {
-        results.clear();
+        // results.clear();
+
+        ArrayList<Composition> arr = new ArrayList<Composition>();
         String input = titleField.getText();
         
-                for(int i = 0; i < library.size(); i++)
-                {
-                    Composition c = library.getComposition(i);
-                    String title = c.getTitle();
-        
-                    if(input.equals(title))
-                    {
-                        results.add(c);
-                    }
-                }
+        if(input.equals("")) // Shows all compositions in the Library
+        {
+            return library.getAll();
+        }
+        else if(input.equals("0")) // Shows all compositions with no VBODA grade (i.e. VBODA Grade = 0)
+        {
+            for(int i = 0; i < library.size(); i++)
+            {
+                Composition c = library.getComposition(i);
+                int vbodaGrade = c.getVbodaGrade();
 
-        return results;
+                if(vbodaGrade == 0)
+                {
+                    arr.add(c);
+                }
+            }
+        }
+        else // Shows all compositions with the matching title
+        {
+            for(int i = 0; i < library.size(); i++)
+            {
+                Composition c = library.getComposition(i);
+                String title = c.getTitle();
+
+                if(input.equals(title))
+                {
+                    arr.add(c);
+                }
+            }
+        }
+        return arr;
     }
 
     public static void populateTable(Object[][] data)
