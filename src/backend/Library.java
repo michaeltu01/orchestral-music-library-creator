@@ -58,6 +58,11 @@ public class Library extends ArrayList
         return metadata.indexOf(c);
     }
 
+    public ArrayList<Composition> getAll()
+    {
+        return metadata;
+    }
+
     public int size()
     {
         return metadata.size();
@@ -127,8 +132,7 @@ public class Library extends ArrayList
 
             while (itr.hasNext())                 
             {  
-                Row row = itr.next();  
-                Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column  
+                Row row = itr.next(); 
                 ArrayList<String> arr = new ArrayList<String>();    //individiual composition metadata
                 int rowLength = row.getPhysicalNumberOfCells();
 
@@ -146,18 +150,6 @@ public class Library extends ArrayList
                 for(int i = 0; i < 6; i++)  
                 {  
                     Cell cell = row.getCell(i);
-
-                    // try
-                    // {
-                    //     if(cell.equals(null))  //BUG: NullPointerException
-                    //     {
-                    //         cell.setCellType(CellType.BLANK);
-                    //     }
-                    // }
-                    // catch(NullPointerException e)
-                    // {
-                    //     cell.setCellValue("");
-                    // }
 
                     switch (cell.getCellTypeEnum())               
                     {  
@@ -177,7 +169,14 @@ public class Library extends ArrayList
                     System.out.println(arr);
                 }
                 Composition c = new Composition(arr);
-                metadata.add(c);
+                if(c.isEmpty())
+                {
+                    continue;
+                }
+                else
+                {
+                    metadata.add(c);
+                }
             }
         }
 

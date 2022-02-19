@@ -1,6 +1,7 @@
 package src.backend;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Composition
 {
@@ -60,9 +61,9 @@ public class Composition
         arranger = arr.get(2);
         publisher = arr.get(3);
 
-        if(Integer.parseInt(arr.get(4)) == 0)
+        if(arr.get(4) == null)
         {
-            vbodaGrade = null;
+            vbodaGrade = 0;
         }
         else
         {
@@ -134,6 +135,22 @@ public class Composition
         this.notes = notes;
     }
 
+    //Instance methods
+
+    public boolean isEmpty()
+    {
+        ArrayList<String> arr = new ArrayList<String>(Arrays.asList(null, null, null, null, "0", null));
+
+        if(this.toStringArrayList().equals(arr))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public ArrayList<String> toStringArrayList()
     {
         ArrayList<String> arr = new ArrayList<String>();
@@ -144,6 +161,8 @@ public class Composition
         arr.add(publisher);
         arr.add(vbodaGrade.toString());
         arr.add(notes);
+
+        System.out.println("This is the output of the toStringArrayList() method: " + arr);
 
         return arr;
     }
