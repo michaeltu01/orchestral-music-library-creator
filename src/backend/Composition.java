@@ -167,7 +167,7 @@ public class Composition
         return arr;
     }
 
-    public ArrayList<Object> toObjectArrayList()
+    public ArrayList<Object> toObjectArrayList() // Optimize to only use ArrayList<Object> in this program!
     {
         ArrayList<Object> arr = new ArrayList<Object>();
 

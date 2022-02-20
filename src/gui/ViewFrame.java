@@ -61,7 +61,7 @@ public class ViewFrame extends JPanel {
         results = new ArrayList<Composition>();
 
         directions.setHorizontalAlignment(SwingConstants.CENTER);
-        directions.setText("Search for the composition below.");
+        directions.setText("Search for the composition below. Number of results: ");
 
         titleLabel.setText("Title:");
 
@@ -72,10 +72,12 @@ public class ViewFrame extends JPanel {
 
             private void titleFieldActionPerformed(ActionEvent evt) 
             {
-                pullResults();
+                results = pullResults();
                 Object[][] data = new Object [results.size()][6];
                 retrieveData(data);
                 populateTable(data);
+                directions.setHorizontalAlignment(SwingConstants.CENTER);
+                directions.setText("Search for the composition below. Number of results: " + numSearchResults()); 
             }
         });
 
@@ -172,10 +174,7 @@ public class ViewFrame extends JPanel {
                                 .addGap(87, 87, 87)
                                 .addComponent(titleLabel)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(titleField, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(211, 211, 211)
-                                .addComponent(directions)))
+                                .addComponent(titleField, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 13, Short.MAX_VALUE))
                     .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
@@ -187,6 +186,10 @@ public class ViewFrame extends JPanel {
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(backButton)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(148, 148, 148)
+                .addComponent(directions)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -214,10 +217,16 @@ public class ViewFrame extends JPanel {
         return results.size();
     }
 
+    public static void resetResults()
+    {
+        results = pullResults();
+    }
+
     public static ArrayList<Composition> pullResults()
     {
-        results.clear();
+        ArrayList<Composition> arr = new ArrayList<Composition>();
         String input = titleField.getText();
+        System.out.println(input);
         
         if(input.equals("")) // Shows all compositions in the Library
         {
@@ -232,7 +241,7 @@ public class ViewFrame extends JPanel {
 
                 if(vbodaGrade == 0)
                 {
-                    results.add(c);
+                    arr.add(c);
                 }
             }
         }
@@ -245,11 +254,11 @@ public class ViewFrame extends JPanel {
 
                 if(input.equals(title))
                 {
-                    results.add(c);
+                    arr.add(c);
                 }
             }
         }
-        return results;
+        return arr;
     }
 
     public static void populateTable(Object[][] data)

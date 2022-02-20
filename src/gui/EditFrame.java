@@ -317,7 +317,7 @@ public class EditFrame extends JPanel
                 library.replace(index, c);
                 library.sortByTitle();
 
-                ViewFrame.pullResults();
+                ViewFrame.resetResults();
                 Object[][] data = new Object [ViewFrame.numSearchResults()][6];
                 ViewFrame.populateTable(ViewFrame.retrieveData(data));
 

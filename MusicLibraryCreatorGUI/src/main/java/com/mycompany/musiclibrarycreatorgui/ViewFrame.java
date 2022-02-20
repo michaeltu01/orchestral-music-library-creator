@@ -37,7 +37,7 @@ public class ViewFrame extends javax.swing.JPanel {
         clearLibraryButton = new javax.swing.JButton();
 
         directions.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        directions.setText("Search for the composition below.");
+        directions.setText("Search for the composition below. Number of Results:");
 
         titleLabel.setText("Title:");
 
@@ -113,10 +113,7 @@ public class ViewFrame extends javax.swing.JPanel {
                                 .addGap(87, 87, 87)
                                 .addComponent(titleLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(211, 211, 211)
-                                .addComponent(directions)))
+                                .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 13, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
@@ -128,6 +125,10 @@ public class ViewFrame extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(backButton)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(148, 148, 148)
+                .addComponent(directions)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
