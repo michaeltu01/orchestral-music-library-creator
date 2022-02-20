@@ -3,7 +3,9 @@ package src.backend;
 import java.util.ArrayList;
 import java.io.File;  
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Iterator;  
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -23,20 +25,41 @@ public class Library
     public Library(File file)
     {
         metadata = new ArrayList<Composition>();
-        read(file);
 
-        // if(!f.exists()) // Checks if the file exists
-        // {
-        //     try 
-        //     { 
-        //     FileOutputStream fileOut = new FileOutputStream("C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx");  //BUG: File created with no bytes
-        //     fileOut.close();  
-        //     } 
-        //     catch (Exception e) 
-        //     {  
-        //     e.printStackTrace();  
-        //     }  
-        // }
+        if(!file.exists()) // Checks if the file exists
+        {
+            // try 
+            // { 
+            // FileOutputStream fileOut = new FileOutputStream("C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx");  //BUG: File created with no bytes
+            // fileOut.close();  
+            // } 
+            // catch (Exception e) 
+            // {  
+            // e.printStackTrace();  
+            // }
+
+            XSSFWorkbook newXLSX = new XSSFWorkbook();
+            XSSFSheet newSheet = newXLSX.createSheet();
+            newSheet.createRow(0);
+            FileOutputStream fileOut;
+            try {
+                fileOut = new FileOutputStream(file);
+                try {
+                    newXLSX.write(fileOut);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("New Database.xlsx file has been created successfully.");  
+                try {
+                    newXLSX.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }            
+        }
+        read(file);
     }
 
     //Getters
