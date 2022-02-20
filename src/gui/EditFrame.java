@@ -46,9 +46,9 @@ public class EditFrame extends JPanel
         initComponents(l);
     }
 
-    public EditFrame(Library l, Composition c, int index)
+    public EditFrame(Library l, Composition c, int index, boolean ifAdd)
     {
-        vfComponents(l, c, index);
+        vfComponents(l, c, index, ifAdd);
     }
 
     /**
@@ -243,7 +243,7 @@ public class EditFrame extends JPanel
         );
     }
 
-    private void vfComponents(Library l, Composition edit, int index) {
+    private void vfComponents(Library l, Composition edit, int index, boolean ifAdd) { // ifAdd = true (append the metadata); ifAdd = false (replace an existing composition)
 
         directions = new JLabel();
         titleLabel = new JLabel();
@@ -314,12 +314,18 @@ public class EditFrame extends JPanel
                                                             publisherField.getText(),
                                                             Integer.parseInt(vbodaGradeField.getText()),
                                                             notesField.getText());
-                library.replace(index, c);
+                if(ifAdd)
+                {
+                    library.append(c);
+                }
+                else
+                {
+                    library.replace(index, c);
+                    ViewFrame.resetResults();
+                    Object[][] data = new Object [ViewFrame.numSearchResults()][6];
+                    ViewFrame.populateTable(ViewFrame.retrieveData(data));
+                }
                 library.sortByTitle();
-
-                ViewFrame.resetResults();
-                Object[][] data = new Object [ViewFrame.numSearchResults()][6];
-                ViewFrame.populateTable(ViewFrame.retrieveData(data));
 
                 EditSummaryFrame esFrame = new EditSummaryFrame(c, library);
                 JFrame frame = new JFrame("EditConfirmationFrame");

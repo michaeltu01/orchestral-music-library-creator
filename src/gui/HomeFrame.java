@@ -10,6 +10,8 @@ import src.backend.Library;
 import java.awt.BorderLayout;
 import java.awt.Window;
 import java.awt.event.*;
+import java.io.File;
+
 import javax.swing.*;
 /**
  *
@@ -24,7 +26,7 @@ public class HomeFrame extends JPanel {
     private JButton viewButton;
     private JLabel welcomeMessage;
 
-    private static Library library;
+    private static final Library LIBRARY = new Library(new File("C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx"));;
 
     /**
      * Creates new form HomeFrame
@@ -49,17 +51,28 @@ public class HomeFrame extends JPanel {
         viewButton = new JButton();
         autocompleteButton = new JButton();
 
-        library = new Library();
-
         welcomeMessage.setHorizontalAlignment(SwingConstants.CENTER);
         welcomeMessage.setText("Welcome Mr. Kelly to the Orchestra Music Library Creator!");
 
         directions.setText("Select a button below to get started.");
 
-        importButton.setText("Import library");
+        importButton.setText("Import Library");
         importButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 importButtonActionPerformed(evt);
+            }
+
+            private void importButtonActionPerformed(ActionEvent evt) 
+            {
+                ImportFrame impF = new ImportFrame(LIBRARY);
+                JFrame frame = new JFrame("Import Composition");
+        
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.getContentPane().add(impF, BorderLayout.CENTER);
+                frame.pack();
+                frame.setVisible(true);
+        
+                // System.out.println(LIBRARY);
             }
         });
 
@@ -68,12 +81,36 @@ public class HomeFrame extends JPanel {
             public void actionPerformed(ActionEvent evt) {
                 addButtonActionPerformed(evt);
             }
+
+            private void addButtonActionPerformed(ActionEvent evt) 
+            {
+                EditFrame ef = new EditFrame(LIBRARY);
+                JFrame frame = new JFrame("Add Composition");
+        
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.getContentPane().add(ef, BorderLayout.CENTER);
+                frame.pack();
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+            }
         });
 
-        viewButton.setText("View library");
+        viewButton.setText("View Library");
         viewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 viewButtonActionPerformed(evt);
+            }
+
+            private void viewButtonActionPerformed(ActionEvent evt) 
+            {
+                ViewFrame vf = new ViewFrame(LIBRARY);
+                JFrame frame = new JFrame("View Library");
+        
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.getContentPane().add(vf, BorderLayout.CENTER);
+                frame.pack();
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
             }
         });
 
@@ -81,6 +118,18 @@ public class HomeFrame extends JPanel {
         autocompleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 autocompleteButtonActionPerformed(evt);
+            }
+
+            private void autocompleteButtonActionPerformed(ActionEvent evt) 
+            {
+                AutocompleteFrame af = new AutocompleteFrame(LIBRARY);
+                JFrame frame = new JFrame("View LIBRARY");
+        
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.getContentPane().add(af, BorderLayout.CENTER);
+                frame.pack();
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
             }
         });
 
@@ -123,47 +172,6 @@ public class HomeFrame extends JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void importButtonActionPerformed(ActionEvent evt) 
-    {
-        ImportFrame impF = new ImportFrame(library);
-        JFrame frame = new JFrame("Import Composition");
-
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.getContentPane().add(impF, BorderLayout.CENTER);
-        frame.pack();
-        frame.setVisible(true);
-
-        // System.out.println(library);
-    }
-
-    private void addButtonActionPerformed(ActionEvent evt) 
-    {
-        EditFrame ef = new EditFrame(library);
-        JFrame frame = new JFrame("Add Composition");
-
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.getContentPane().add(ef, BorderLayout.CENTER);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
-
-    private void viewButtonActionPerformed(ActionEvent evt) 
-    {
-        ViewFrame vf = new ViewFrame(library);
-        JFrame frame = new JFrame("View Library");
-
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.getContentPane().add(vf, BorderLayout.CENTER);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
-
-    private void autocompleteButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_autocompleteButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_autocompleteButtonActionPerformed
-
     public static void main(String[] args)
     {
         JFrame frame = new JFrame("HomeFrame");
@@ -172,7 +180,7 @@ public class HomeFrame extends JPanel {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                SavePrompt sp = new SavePrompt(library);
+                SavePrompt sp = new SavePrompt(LIBRARY);
                 sp.setVisible(true);
             }});
 

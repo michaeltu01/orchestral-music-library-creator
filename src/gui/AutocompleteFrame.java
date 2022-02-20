@@ -2,39 +2,43 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
+
 package src.gui;
 
+import src.backend.Library;
+import src.backend.VBODALibrary;
+import src.backend.Composition;
+
 import javax.swing.*;
+
 import java.awt.BorderLayout;
 import java.awt.Window;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
-
-import src.backend.Composition;
-import src.backend.Library;
 /**
  *
  * @author Michael Tu
  */
-public class ViewFrame extends JPanel {
 
-    private JLabel directions;
+public class AutocompleteFrame extends JPanel {
+
+    private JButton addButton;
     private JButton backButton;
-    private JButton deleteButton;
-    private JButton clearLibraryButton;
-    private JButton editButton;
+    private JLabel directions;
     private static JTable searchResults;
     private static JScrollPane sp;
     private static JTextField titleField;
     private JLabel titleLabel;
 
     private static Library library;
+    private static VBODALibrary vbodaLibrary;
     private static ArrayList<Composition> results;
     
     /**
-     * Creates new form ViewFrame
+     * Creates new form AutocompleteFrame
      */
-    public ViewFrame(Library l) {
+    public AutocompleteFrame(Library l) {
         initComponents(l);
     }
 
@@ -48,20 +52,18 @@ public class ViewFrame extends JPanel {
     private void initComponents(Library l) {
 
         directions = new JLabel();
-        titleLabel = new JLabel();
-        titleField = new JTextField();
-        editButton = new JButton();
-        deleteButton = new JButton();
-        backButton = new JButton();
         sp = new JScrollPane();
         searchResults = new JTable();
-        clearLibraryButton = new JButton();
-        
+        titleLabel = new JLabel();
+        titleField = new JTextField();
+        addButton = new JButton();
+        backButton = new JButton();
+
         library = l;
+        vbodaLibrary = new VBODALibrary();
         results = new ArrayList<Composition>();
 
-        directions.setHorizontalAlignment(SwingConstants.CENTER);
-        directions.setText("Search for the composition below. Number of results: ");
+        directions.setText("Search for the composition below from the VBODA database.");
 
         titleLabel.setText("Title:");
 
@@ -76,72 +78,28 @@ public class ViewFrame extends JPanel {
                 Object[][] data = new Object [results.size()][6];
                 retrieveData(data);
                 populateTable(data);
-                directions.setHorizontalAlignment(SwingConstants.CENTER);
-                directions.setText("Search for the composition below. Number of results: " + numSearchResults()); 
             }
         });
 
-        clearLibraryButton.setText("Clear Library");
-        clearLibraryButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt)
-            {
-                clearLibraryButtonActionPerformed(evt);
-            }
-
-            private void clearLibraryButtonActionPerformed(ActionEvent evt)
-            {
-                library.clear();
-                library.toString();
-
-                JDialog dialog = new JDialog();
-                JLabel confMessage = new JLabel("Library has been cleared. Confirm your save upon closing the application.");
-
-                confMessage.setHorizontalAlignment(JLabel.CENTER);
-                dialog.add(confMessage);
-                dialog.setSize(500, 100);
-                dialog.setLocationRelativeTo(null);
-                dialog.setVisible(true);
-
-            }
-        });
-
-        editButton.setText("Edit");
-        editButton.addActionListener(new ActionListener() {
+        addButton.setText("Add");
+        addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                editButtonActionPerformed(evt);
+                addButtonActionPerformed(evt);
             }
 
-            private void editButtonActionPerformed(ActionEvent evt) 
+            private void addButtonActionPerformed(ActionEvent evt) 
             {
                 int row = searchResults.getSelectedRow();
                 Composition c = results.get(row);
                 int index = library.getIndex(c);
 
-                EditFrame ef = new EditFrame(library, c, index, false);
+                EditFrame ef = new EditFrame(library, c, index, true);
                 JFrame frame = new JFrame("Edit composition");
 
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.getContentPane().add(ef, BorderLayout.CENTER);
                 frame.pack();
                 frame.setVisible(true);
-            }
-        });
-
-        deleteButton.setText("Delete");
-        deleteButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                deleteButtonActionPerformed(evt);
-            }
-
-            private void deleteButtonActionPerformed(ActionEvent evt)
-            {
-                int row = searchResults.getSelectedRow();
-                Composition c = results.get(row);
-                results.remove(c);
-                library.remove(c);
-        
-                Object[][] data = new Object[results.size()][6];
-                populateTable(retrieveData(data));
             }
         });
 
@@ -164,32 +122,21 @@ public class ViewFrame extends JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                    .addComponent(directions)
+                    .addComponent(sp, GroupLayout.PREFERRED_SIZE, 570, GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(sp, GroupLayout.PREFERRED_SIZE, 570, GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(87, 87, 87)
-                                .addComponent(titleLabel)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(titleField, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 13, Short.MAX_VALUE))
-                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(clearLibraryButton)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(editButton)
+                        .addComponent(titleLabel)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteButton)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(backButton)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addComponent(directions)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(titleField, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(57, Short.MAX_VALUE))
+            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addButton)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(backButton)
+                .addGap(13, 13, 13))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -200,14 +147,12 @@ public class ViewFrame extends JPanel {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(titleLabel)
                     .addComponent(titleField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
                 .addComponent(sp, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(editButton)
-                    .addComponent(deleteButton)
-                    .addComponent(backButton)
-                    .addComponent(clearLibraryButton))
+                    .addComponent(addButton)
+                    .addComponent(backButton))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -228,34 +173,15 @@ public class ViewFrame extends JPanel {
         String input = titleField.getText();
         System.out.println(input);
         
-        if(input.equals("")) // Shows all compositions in the Library
+        for(int i = 0; i < vbodaLibrary.size(); i++)
         {
-            return library.getAll();
-        }
-        else if(input.equals("0")) // Shows all compositions with no VBODA grade (i.e. VBODA Grade = 0)
-        {
-            for(int i = 0; i < library.size(); i++)
-            {
-                Composition c = library.getComposition(i);
-                int vbodaGrade = c.getVbodaGrade();
+            System.out.println("Running...");
+            Composition c = vbodaLibrary.getComposition(i);
+            String title = c.getTitle();
 
-                if(vbodaGrade == 0)
-                {
-                    arr.add(c);
-                }
-            }
-        }
-        else // Shows all compositions with the matching title
-        {
-            for(int i = 0; i < library.size(); i++)
+            if(input.equals(title))
             {
-                Composition c = library.getComposition(i);
-                String title = c.getTitle();
-
-                if(input.equals(title))
-                {
-                    arr.add(c);
-                }
+                arr.add(c);
             }
         }
         return arr;
@@ -295,14 +221,5 @@ public class ViewFrame extends JPanel {
         }
 
         return data;
-    }
-
-    public static void main(String[] args)
-    {
-        JFrame frame = new JFrame("ViewFrame");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.getContentPane().add(new ViewFrame(library), BorderLayout.CENTER);
-        frame.pack();
-        frame.setVisible(true);
     }
 }

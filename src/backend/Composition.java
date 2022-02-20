@@ -162,7 +162,7 @@ public class Composition
         arr.add(vbodaGrade.toString());
         arr.add(notes);
 
-        System.out.println("This is the output of the toStringArrayList() method: " + arr);
+        // System.out.println("This is the output of the toStringArrayList() method: " + arr);
 
         return arr;
     }

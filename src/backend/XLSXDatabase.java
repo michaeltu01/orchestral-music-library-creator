@@ -22,7 +22,7 @@ public class XLSXDatabase
     private static XSSFSheet spreadsheet;
     private static XSSFRow row;
 	private static Library metadata;
-    private static final File f = new File("C:/Users/Michael Tu/Desktop/Code/IA/Data.xlsx");
+    private static final File f = new File("C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx");
 
     public XLSXDatabase() throws InvalidFormatException, IOException
     {

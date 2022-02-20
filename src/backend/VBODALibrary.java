@@ -7,29 +7,29 @@ import java.io.FileOutputStream;
 import java.util.Iterator;  
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;  
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class Library
+// // See if you can optimize code by simply creating a new Library object
+public class VBODALibrary
 {
     //ArrayList variable
-    private static ArrayList<Composition> metadata;
+    private static ArrayList<Composition> vbodaLibrary;
 
     private static XSSFWorkbook wb;
     private static XSSFSheet sheet;
+    private static final File f = new File("C:/Users/Michael Tu/Desktop/Code/IA/VBODA Music Library.xlsx");
 
     //Constructor
-    public Library(File file)
+    public VBODALibrary()
     {
-        metadata = new ArrayList<Composition>();
-        read(file);
-
-        // if(!f.exists()) // Checks if the file exists
+        vbodaLibrary = new ArrayList<Composition>();
+        read(f);
+        // if(!f.exists())
         // {
         //     try 
         //     { 
-        //     FileOutputStream fileOut = new FileOutputStream("C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx");  //BUG: File created with no bytes
+        //     FileOutputStream fileOut = new FileOutputStream(f);  //BUG: File created with no bytes
         //     fileOut.close();  
         //     } 
         //     catch (Exception e) 
@@ -42,64 +42,64 @@ public class Library
     //Getters
     public Composition getComposition(int index)
     {
-        return metadata.get(index);
+        return vbodaLibrary.get(index);
     }
 
     public int getIndex(Composition c)
     {
-        return metadata.indexOf(c);
+        return vbodaLibrary.indexOf(c);
     }
 
     public ArrayList<Composition> getAll()
     {
-        return metadata;
+        return vbodaLibrary;
     }
 
     public int size()
     {
-        return metadata.size();
+        return vbodaLibrary.size();
     }
 
     //Setters
     public void append(Composition c)
     {
-        metadata.add(c);
+        vbodaLibrary.add(c);
     }
 
     public void add(Composition c, int index)
     {
-        metadata.add(index, c);
+        vbodaLibrary.add(index, c);
     }
 
     public Composition remove(int index)
     {
-        return metadata.remove(index);
+        return vbodaLibrary.remove(index);
     }
 
     public Composition remove(Composition c)
     {
-        return metadata.remove(this.getIndex(c));
+        return vbodaLibrary.remove(this.getIndex(c));
     }
 
     public Composition replace(int index, Composition c)
     {
-        return metadata.set(index, c);
+        return vbodaLibrary.set(index, c);
     }
 
     public void clear()
     {
-        metadata.clear();
+        vbodaLibrary.clear();
     }
 
     //Instance Methods
-    public ArrayList<Composition> sortByTitle() //Returns metadata sort alphabetically by title ascending (A-Z)
+    public ArrayList<Composition> sortByTitle() //Returns vbodaLibrary sort alphabetically by title ascending (A-Z)
     {
-        for (int j = 0; j < metadata.size(); j++)
+        for (int j = 0; j < vbodaLibrary.size(); j++)
         {
-            Composition curr = metadata.get(j);
+            Composition curr = vbodaLibrary.get(j);
             String currtitle = curr.getTitle();
             int i = j-1;
-            while ((i > -1) && (metadata.get(i).getTitle().compareTo(currtitle) > 0))
+            while ((i > -1) && (vbodaLibrary.get(i).getTitle().compareTo(currtitle) > 0))
             {
                 this.replace(i+1, this.getComposition(i));
                 i--;
@@ -107,12 +107,7 @@ public class Library
             this.replace(i+1, curr);
         }
 
-        return metadata;
-    }
-
-    public ArrayList<Composition> sortByVbodaGrade()
-    {
-        // return metadata;
+        return vbodaLibrary;
     }
 
     public static void read(File xlsx)
@@ -130,7 +125,7 @@ public class Library
             while (itr.hasNext())                 
             {  
                 Row row = itr.next(); 
-                ArrayList<String> arr = new ArrayList<String>();    //individiual composition metadata
+                ArrayList<String> arr = new ArrayList<String>();    //individiual composition vbodaLibrary
                 int rowLength = row.getPhysicalNumberOfCells();
 
                 // while (cellIterator.hasNext())
@@ -175,65 +170,23 @@ public class Library
                     compositions.add(c);
                 }
             }
-            metadata = compositions;
+            vbodaLibrary = compositions;
         }
 
         catch(Exception e)  
         {  
             e.printStackTrace();  
         }
-    }
-
-    public static void write(File xlsx) throws Exception
-    {
-        File file = xlsx;
-        int rowid = 0;
-  
-        // writing the data into the sheets...
-        System.out.println("Metadata list size: " + metadata.size());
-        for (int i = 0; i < metadata.size(); i++) 
-        {
-            XSSFRow row = sheet.createRow(rowid++);
-            Composition c = metadata.get(i);
-            ArrayList<String> arr = c.toStringArrayList();
-            int cellid = 0;
-  
-            for (int j = 0; j < 6; j++) // j == num of instance variables in a Composition
-            {
-                Cell cell = row.createCell(j);
-                // if(arr.get(j).getClass().getSimpleName().equals("Integer"))
-                // {
-                //     CellStyle intStyle = wb.createCellStyle();
-                //     DataFormat format = wb.createDataFormat();
-
-                //     intStyle.setDataFormat(format.getFormat("0"));
-                //     cell.setCellStyle(intStyle);
-                //     cell.setCellValue(arr.get(j));
-                // }
-                // else
-                // {
-                //     cell.setCellValue(arr.get(j));
-                // }
-                cell.setCellValue(arr.get(j));
-            }
-        }
-  
-        // .xlsx is the format for Excel Sheets...
-        // writing the workbook into the file...
-        FileOutputStream out = new FileOutputStream(file);
-  
-        wb.write(out);
-        out.close();
-    }
+    }  
 
     //toString
     public String toString()
     {
         String temp = "";
 
-        for(int i = 0; i < metadata.size(); i++)
+        for(int i = 0; i < vbodaLibrary.size(); i++)
         {
-            temp = temp + i + ": " + metadata.get(i).toString() + "\n";
+            temp = temp + i + ": " + vbodaLibrary.get(i).toString() + "\n";
         }
 
         return temp;
