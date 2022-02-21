@@ -27,6 +27,7 @@ public class ViewFrame extends JPanel {
     private static JScrollPane sp;
     private static JTextField titleField;
     private JLabel titleLabel;
+    private JButton helpButton;
 
     private static Library library;
     private static ArrayList<Composition> results;
@@ -56,6 +57,8 @@ public class ViewFrame extends JPanel {
         sp = new JScrollPane();
         searchResults = new JTable();
         clearLibraryButton = new JButton();
+        helpButton = new JButton();
+        JPanel viewFrame = this;
         
         library = l;
         results = new ArrayList<Composition>();
@@ -159,12 +162,49 @@ public class ViewFrame extends JPanel {
             }
         });
 
+        helpButton.setText("Help");
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+
+            private void helpButtonActionPerformed(ActionEvent evt)
+            {
+                String str = "<html>Hit ENTER on an empty search bar to see your entire library.<br>"
+                                + "Search '0' to see all compositions with a VBODA grade of 0 (i.e. has no VBODA grade)<html>";
+                // JDialog help = new JDialog();
+                // JLabel instructions = new JLabel();
+
+                // instructions.setText("<html>Hit ENTER on an empty search bar to see your entire library.<br>"
+                //                         + "Search '0' to see all compositions with a VBODA grade of 0 (i.e. has no VBODA grade)<html>");
+                // instructions.setHorizontalAlignment(JLabel.CENTER);
+                // help.add(instructions);
+
+                // help.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                // help.setSize(550, 150);
+                // System.out.println(help.getPreferredSize());
+                // help.setLocationRelativeTo(null);
+                // help.setVisible(true);
+
+                JOptionPane.showMessageDialog(viewFrame, str);
+            }
+        });
+
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(clearLibraryButton)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(editButton)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteButton)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(backButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -175,27 +215,21 @@ public class ViewFrame extends JPanel {
                                 .addComponent(titleLabel)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(titleField, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 13, Short.MAX_VALUE))
-                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(clearLibraryButton)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(editButton)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteButton)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(backButton)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addComponent(directions)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(0, 16, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(148, 148, 148)
+                    .addComponent(directions)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(helpButton)))
+            .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(directions)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(directions)
+                    .addComponent(helpButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(titleLabel)

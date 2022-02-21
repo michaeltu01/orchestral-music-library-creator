@@ -30,6 +30,7 @@ public class AutocompleteFrame extends JPanel {
     private static JScrollPane sp;
     private static JTextField titleField;
     private JLabel titleLabel;
+    private JButton helpButton;
 
     private static Library library;
     private static VBODALibrary vbodaLibrary;
@@ -58,6 +59,8 @@ public class AutocompleteFrame extends JPanel {
         titleField = new JTextField();
         addButton = new JButton();
         backButton = new JButton();
+        helpButton = new JButton();
+        JPanel autocompleteFrame = this;
 
         library = l;
         vbodaLibrary = new VBODALibrary();
@@ -117,6 +120,31 @@ public class AutocompleteFrame extends JPanel {
             }
         });
 
+        helpButton.setText("Help");
+        helpButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+
+            private void helpButtonActionPerformed(ActionEvent evt)
+            {
+                // JDialog help = new JDialog();
+                // JLabel instructions = new JLabel();
+
+                // instructions.setText("Hit ENTER on an empty search bar to see your entire library.");
+                // instructions.setHorizontalAlignment(JLabel.CENTER);
+                // help.add(instructions);
+
+                // help.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                // help.setSize(400, 100);
+                // System.out.println(help.getPreferredSize());
+                // help.setLocationRelativeTo(null);
+                // help.setVisible(true);
+
+                JOptionPane.showMessageDialog(autocompleteFrame, "Hit ENTER on an empty search bar to see your entire library.");
+            }
+        });
+
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,13 +152,20 @@ public class AutocompleteFrame extends JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                    .addComponent(directions)
-                    .addComponent(sp, GroupLayout.PREFERRED_SIZE, 570, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                        .addComponent(sp, GroupLayout.PREFERRED_SIZE, 570, GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(titleLabel)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(titleField, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addGap(0, 45, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(directions)
+                    .addGap(85, 85, 85)
+                    .addComponent(helpButton)))
+                .addContainerGap())
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(addButton)
@@ -142,11 +177,13 @@ public class AutocompleteFrame extends JPanel {
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(directions)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(titleLabel)
-                    .addComponent(titleField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(directions)
+                    .addComponent(helpButton))
+                    .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(titleLabel)
+                        .addComponent(titleField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(sp, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -173,15 +210,21 @@ public class AutocompleteFrame extends JPanel {
         String input = titleField.getText();
         System.out.println(input);
         
-        for(int i = 0; i < vbodaLibrary.size(); i++)
+        if(input.equals("")) // Shows all compositions in the Library
         {
-            System.out.println("Running...");
-            Composition c = vbodaLibrary.getComposition(i);
-            String title = c.getTitle();
-
-            if(input.equals(title))
+            return vbodaLibrary.getAll();
+        }
+        else // Shows all compositions with the matching title
+        {
+            for(int i = 0; i < vbodaLibrary.size(); i++)
             {
-                arr.add(c);
+                Composition c = vbodaLibrary.getComposition(i);
+                String title = c.getTitle();
+
+                if(input.equals(title))
+                {
+                    arr.add(c);
+                }
             }
         }
         return arr;

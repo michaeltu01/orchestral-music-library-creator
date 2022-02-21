@@ -25,6 +25,7 @@ public class HomeFrame extends JPanel {
     private JButton importButton;
     private JButton viewButton;
     private JLabel welcomeMessage;
+    private JButton helpButton;
 
     private static final Library LIBRARY = new Library(new File("Database.xlsx"));;
 
@@ -50,6 +51,8 @@ public class HomeFrame extends JPanel {
         addButton = new JButton();
         viewButton = new JButton();
         autocompleteButton = new JButton();
+        helpButton = new JButton();
+        JPanel homeFrame = this;
 
         welcomeMessage.setHorizontalAlignment(SwingConstants.CENTER);
         welcomeMessage.setText("Welcome Mr. Kelly to the Orchestra Music Library Creator!");
@@ -133,42 +136,81 @@ public class HomeFrame extends JPanel {
             }
         });
 
+        helpButton.setText("Help");
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+
+            private void helpButtonActionPerformed(ActionEvent evt) 
+            {
+                String str = "<html>\"Import library\": Overwrites the current library with an existing Excel file <br>"
+                                + "\"Add music\": Adds a new composition<br>"
+                                + "\"Input using title\": Searches the VBODA Database for a composition<br>"
+                                + "\"View library\": View, edit, and delete compositions";
+                // JDialog help = new JDialog();
+                // JLabel instructions = new JLabel();
+
+                // instructions.setText("<html>\"Import library\": Overwrites the current library with an existing Excel file <br>"
+                //                         + "\"Add music\": Adds a new composition<br>"
+                //                         + "\"Input using title\": Searches the VBODA Database for a composition<br>"
+                //                         + "\"View library\": View, edit, and delete compositions");
+                // instructions.setHorizontalAlignment(JLabel.CENTER);
+                // help.add(instructions);
+
+                // help.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                // help.setSize(500, 150);
+                // System.out.println(help.getPreferredSize());
+                // help.setLocationRelativeTo(null);
+                // help.setVisible(true);
+
+                JOptionPane.showMessageDialog(homeFrame, str);
+            }
+        });
+
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
                         .addComponent(importButton)
                         .addGap(18, 18, 18)
                         .addComponent(addButton)
                         .addGap(18, 18, 18)
                         .addComponent(autocompleteButton)
                         .addGap(18, 18, 18)
-                        .addComponent(viewButton))
+                        .addComponent(viewButton)
+                        .addContainerGap(25, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                             .addComponent(welcomeMessage)
-                            .addComponent(directions))))
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(directions))
+                        .addGap(36, 36, 36)
+                        .addComponent(helpButton)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(welcomeMessage)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(directions)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(helpButton, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(welcomeMessage)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(directions)))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(importButton)
                     .addComponent(addButton)
                     .addComponent(viewButton)
                     .addComponent(autocompleteButton))
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
