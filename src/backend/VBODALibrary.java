@@ -18,25 +18,13 @@ public class VBODALibrary
 
     private static XSSFWorkbook wb;
     private static XSSFSheet sheet;
-    private static final File f = new File("C:/Users/Michael Tu/Desktop/Code/IA/VBODA Music Library.xlsx");
+    private static final File f = new File("VBODA Music Library.xlsx"); // Put the VBODA Music Library into a zip folder
 
     //Constructor
     public VBODALibrary()
     {
         vbodaLibrary = new ArrayList<Composition>();
         read(f);
-        // if(!f.exists())
-        // {
-        //     try 
-        //     { 
-        //     FileOutputStream fileOut = new FileOutputStream(f);  //BUG: File created with no bytes
-        //     fileOut.close();  
-        //     } 
-        //     catch (Exception e) 
-        //     {  
-        //     e.printStackTrace();  
-        //     }  
-        // }
     }
 
     //Getters

@@ -30,6 +30,10 @@
               <EmptySpace pref="57" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="sortByTitleButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="sortByVbodaGradeButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -54,6 +58,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="sortByTitleButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="sortByVbodaGradeButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -111,6 +117,22 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Back"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="sortByTitleButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sort by Title"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sortByTitleButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="sortByVbodaGradeButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sort by VBODA Grade"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sortByVbodaGradeButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

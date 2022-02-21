@@ -26,7 +26,7 @@ public class HomeFrame extends JPanel {
     private JButton viewButton;
     private JLabel welcomeMessage;
 
-    private static final Library LIBRARY = new Library(new File("C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx"));;
+    private static final Library LIBRARY = new Library(new File("Database.xlsx"));;
 
     /**
      * Creates new form HomeFrame
