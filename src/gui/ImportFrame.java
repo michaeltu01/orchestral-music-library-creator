@@ -38,7 +38,7 @@ public class ImportFrame extends JPanel { // https://stackoverflow.com/a/2314371
         // IPanel = new JPanel();
         jfc = new JFileChooser();
 
-        String fullPath = "C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx";
+        String fullPath = library.getFilePath();
         // String unzippedPath = fullPath.substring(0, fullPath.length() - 5);
 
         jfc.setCurrentDirectory(new File(fullPath));
@@ -85,6 +85,7 @@ public class ImportFrame extends JPanel { // https://stackoverflow.com/a/2314371
 
             try {
                 Library.read(in);
+                library.sortByTitle();
             } catch(Exception e) {
                 e.printStackTrace();
             }

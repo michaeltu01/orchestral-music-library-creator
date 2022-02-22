@@ -20,30 +20,22 @@ public class Library
 
     private static XSSFWorkbook wb;
     private static XSSFSheet sheet;
+    private static File database;
 
     //Constructor
     public Library(File file)
     {
+        database = file;
         metadata = new ArrayList<Composition>();
 
-        if(!file.exists()) // Checks if the file exists
+        if(!database.exists()) // Checks if the file exists
         {
-            // try 
-            // { 
-            // FileOutputStream fileOut = new FileOutputStream("C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx");  //BUG: File created with no bytes
-            // fileOut.close();  
-            // } 
-            // catch (Exception e) 
-            // {  
-            // e.printStackTrace();  
-            // }
-
             XSSFWorkbook newXLSX = new XSSFWorkbook();
             XSSFSheet newSheet = newXLSX.createSheet();
             newSheet.createRow(0);
             FileOutputStream fileOut;
             try {
-                fileOut = new FileOutputStream(file);
+                fileOut = new FileOutputStream(database);
                 try {
                     newXLSX.write(fileOut);
                 } catch (IOException e) {
@@ -59,7 +51,7 @@ public class Library
                 e.printStackTrace();
             }            
         }
-        read(file);
+        read(database);
     }
 
     //Getters
@@ -81,6 +73,11 @@ public class Library
     public int size()
     {
         return metadata.size();
+    }
+
+    public String getFilePath() throws IOException
+    {
+        return database.getCanonicalPath();
     }
 
     //Setters
@@ -133,9 +130,157 @@ public class Library
         return metadata;
     }
 
+    public ArrayList<Composition> mergeSortByTitle()
+    {
+        return mergeSort(metadata, 0, metadata.size()-1, true);
+    }
+
     public ArrayList<Composition> sortByVbodaGrade()
     {
-        // return metadata;
+        return mergeSort(metadata, 0, metadata.size()-1, false);
+    }
+
+    //https://www.geeksforgeeks.org/merge-sort/ 
+    // Merges two subarrays of arr[].
+    // First subarray is arr[l..m]
+    // Second subarray is arr[m+1..r]
+    public static void mergeByGrade(ArrayList<Composition> arr, int l, int m, int r)
+    {       
+        // Find sizes of two subarrays to be merged
+        int n1 = m - l + 1;
+        int n2 = r - m;
+
+        /* Create temp arrays */
+        ArrayList<Composition> left = new ArrayList<Composition>(n1);
+        ArrayList<Composition> right = new ArrayList<Composition>(n2);
+
+        /*Copy data to temp arrays*/
+        for (int i = 0; i < n1; ++i)
+            left.add(arr.get(l + i));
+        for (int j = 0; j < n2; ++j)
+            right.add(arr.get(m + 1 + j));
+
+        /* Merge the temp arrays */
+
+        // Initial indexes of first and second subarrays
+        int i = 0, j = 0;
+
+        // Initial index of merged subarray array
+        int k = l;
+        while (i < n1 && j < n2) {
+            if (left.get(i).getVbodaGrade() < right.get(j).getVbodaGrade()) {
+                arr.add(k, left.get(i));
+                i++;
+            }
+            else if(left.get(i).getVbodaGrade() == right.get(j).getVbodaGrade())
+            {
+                if(left.get(i).getTitle().compareTo(right.get(j).getTitle()) <= 0)
+                {
+                    arr.add(k, left.get(i));
+                    i++;
+                }
+                else
+                {
+                    arr.add(k, right.get(j));
+                    j++;
+                }
+            }
+            else {
+                arr.add(k, right.get(j));
+                j++;
+            }
+            k++;
+        }
+
+        /* Copy remaining elements of L[] if any */
+        while (i < n1) {
+            arr.add(k, left.get(i));
+            i++;
+            k++;
+        }
+
+        /* Copy remaining elements of R[] if any */
+        while (j < n2) {
+            arr.add(k, right.get(j));
+            j++;
+            k++;
+        }
+    }
+
+    public static void mergeByTitle(ArrayList<Composition> arr, int l, int m, int r)
+    {        
+        // Find sizes of two subarrays to be merged
+        int n1 = m - l + 1;
+        int n2 = r - m;
+
+        /* Create temp arrays */
+        ArrayList<Composition> left = new ArrayList<Composition>(n1);
+        ArrayList<Composition> right = new ArrayList<Composition>(n2);
+
+        /*Copy data to temp arrays*/
+        for (int i = 0; i < n1; ++i)
+            left.add(arr.get(l + i));
+        for (int j = 0; j < n2; ++j)
+            right.add(arr.get(m + 1 + j));
+
+        /* Merge the temp arrays */
+
+        // Initial indexes of first and second subarrays
+        int i = 0, j = 0;
+
+        // Initial index of merged subarray array
+        int k = l;
+        while (i < n1 && j < n2) {
+            if (left.get(i).getTitle().compareTo(right.get(j).getTitle()) < 0) {
+                arr.add(k, left.get(i));
+                i++;
+            }
+            else {
+                arr.add(k, right.get(j));
+                j++;
+            }
+            k++;
+        }
+
+        /* Copy remaining elements of L[] if any */
+        while (i < n1) {
+            arr.add(k, left.get(i));
+            i++;
+            k++;
+        }
+
+        /* Copy remaining elements of R[] if any */
+        while (j < n2) {
+            arr.add(k, right.get(j));
+            j++;
+            k++;
+        }
+    }
+    
+    // Main function that sorts arr[l..r] using
+    // merge()
+    public static ArrayList<Composition> mergeSort(ArrayList<Composition> arr, int l, int r, boolean ifSortTitle)
+    {
+        if (l < r)
+        {
+            // Find the middle point
+            int m = l+ (r-l)/2;
+
+            // Sort first and second halves
+            mergeSort(arr, l, m, ifSortTitle);
+            mergeSort(arr, m + 1, r, ifSortTitle);
+
+            // Merge the sorted halves
+            if(ifSortTitle)
+            {
+                mergeByTitle(arr, l, m, r);
+            }
+            else
+            {
+                mergeByGrade(arr, l, m, r);
+            }
+        }
+        return arr;
     }
 
     public static void read(File xlsx)

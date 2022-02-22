@@ -19,11 +19,16 @@ public class SavePrompt extends JPanel { // https://stackoverflow.com/a/23143716
     private static JFileChooser jfc;
     private static Library library;
 
-    private static final File f = new File("C:/Users/Michael Tu/Desktop/Code/IA/Database.xlsx");
+    private static File f;
 
     public SavePrompt(Library l)
     {
         library = l;
+        try {
+            f = new File(library.getFilePath());
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
 
         try {
             initComponents();
@@ -50,18 +55,13 @@ public class SavePrompt extends JPanel { // https://stackoverflow.com/a/23143716
         if(result == JFileChooser.APPROVE_OPTION)
         {
             // System.out.println(jfc.getSelectedFile().toString());
-            // if(jfc.getSelectedFile().toString().equals("C:\\Users\\Michael Tu\\Desktop\\Code\\IA\\Database.xlsx"))
+            // switch(jfc.getSelectedFile().toString())
             // {
-            //     JDialog error = new JDialog();
-            //     JLabel message = new JLabel();
-
-            //     message.setText("You can't choose this file.");
-            //     error.add(message);
-            //     error.setSize(300, 100);
-            //     error.setLocationRelativeTo(null);
-            //     error.setVisible(true);
+            //     case: "Database.xlsx"
+            //     {
+            //         JOptionPane.showMessageDialog(jfc, "You can't choose this file.");
+            //     }
             // }
-
             File out = new File(jfc.getSelectedFile().toString());
             // System.out.println(out.getAbsolutePath());
             // int BUF_SIZE = (int) in.length();
