@@ -120,7 +120,8 @@ public class AutocompleteFrame extends JPanel {
             }
         });
 
-        helpButton.setText("Help");
+        Icon helpIcon = new ImageIcon("helpIcon.png");
+        helpButton.setIcon(helpIcon);
         helpButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 helpButtonActionPerformed(evt);

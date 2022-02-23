@@ -136,7 +136,8 @@ public class HomeFrame extends JPanel {
             }
         });
 
-        helpButton.setText("Help");
+        Icon helpIcon = new ImageIcon("helpIcon.png");
+        helpButton.setIcon(helpIcon);
         helpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 helpButtonActionPerformed(evt);
