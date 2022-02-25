@@ -18,8 +18,9 @@ import javax.swing.*;
 public class EditSummaryFrame extends JPanel {
 
     private JButton backButton;
-    private JLabel metadata;
+    private JTextPane metadata;
     private JLabel title;
+    private JScrollPane sp;
 
     /**
      * Creates new form EditConfirmationFrame
@@ -38,13 +39,21 @@ public class EditSummaryFrame extends JPanel {
     private void initComponents(Composition c, Library l) {
 
         title = new JLabel();
-        metadata = new JLabel();
+        metadata = new JTextPane();
         backButton = new JButton();
+        sp = new JScrollPane(metadata, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setText("You added the following composition:");
 
-        metadata.setText(c.toString());
+        metadata.setEditable(false);
+        metadata.setContentType("text/html");
+        metadata.setText("<html>Title: " + c.getTitle()
+                            + "<br>Composer: " + c.getComposer()
+                            + "<br>Arranger: " + c.getArranger()
+                            + "<br>Publisher: " + c.getPublisher()
+                            + "<br>VBODA Grade: " + c.getVbodaGrade()
+                            + "<br>Notes: " + c.getNotes() + "</html>");
 
         backButton.setText("Back");
         backButton.addActionListener(new ActionListener() {
@@ -66,7 +75,7 @@ public class EditSummaryFrame extends JPanel {
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
-                .addComponent(metadata, GroupLayout.PREFERRED_SIZE, 481, GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp, GroupLayout.PREFERRED_SIZE, 481, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(59, Short.MAX_VALUE))
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -84,7 +93,7 @@ public class EditSummaryFrame extends JPanel {
                 .addContainerGap()
                 .addComponent(title)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(metadata, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(backButton)
                 .addContainerGap())

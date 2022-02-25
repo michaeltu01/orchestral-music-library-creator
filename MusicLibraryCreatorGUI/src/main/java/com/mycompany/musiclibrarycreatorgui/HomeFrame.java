@@ -4,6 +4,8 @@
  */
 package com.mycompany.musiclibrarycreatorgui;
 
+import javax.swing.*;
+
 /**
  *
  * @author Michael Tu
@@ -15,6 +17,7 @@ public class HomeFrame extends javax.swing.JPanel {
      */
     public HomeFrame() {
         initComponents();
+        Icon helpIcon = new ImageIcon("helpIcon.png");
     }
 
     /**
@@ -67,7 +70,7 @@ public class HomeFrame extends javax.swing.JPanel {
             }
         });
 
-        helpButton.setText("Help");
+        helpButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/musiclibrarycreatorgui/helpIcon.png"))); // NOI18N
         helpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 helpButtonActionPerformed(evt);
@@ -89,27 +92,24 @@ public class HomeFrame extends javax.swing.JPanel {
                         .addComponent(autocompleteButton)
                         .addGap(18, 18, 18)
                         .addComponent(viewButton)
-                        .addContainerGap(25, Short.MAX_VALUE))
+                        .addContainerGap(32, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(welcomeMessage)
                             .addComponent(directions))
-                        .addGap(36, 36, 36)
-                        .addComponent(helpButton)
-                        .addContainerGap())))
+                        .addGap(112, 112, 112)
+                        .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(welcomeMessage)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(directions)))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(welcomeMessage)
+                    .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(directions)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(importButton)

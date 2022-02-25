@@ -15,17 +15,16 @@ import src.backend.Composition;
 public class SavePrompt extends JPanel { // https://stackoverflow.com/a/23143716 
 
     private static JFrame saveFrame;
-    private static JPanel SPanel;
     private static JFileChooser jfc;
     private static Library library;
 
-    private static File f;
+    private static File database;
 
     public SavePrompt(Library l)
     {
         library = l;
         try {
-            f = new File(library.getFilePath());
+            database = new File(library.getFilePath());
         } catch (IOException e1) {
             e1.printStackTrace();
         }
@@ -42,26 +41,16 @@ public class SavePrompt extends JPanel { // https://stackoverflow.com/a/23143716
     private void initComponents() throws IOException, FileNotFoundException
     {
         saveFrame = new JFrame();
-        // SPanel = new JPanel();
         jfc = new JFileChooser();
 
-        jfc.setCurrentDirectory(f);
-        jfc.setSelectedFile(new File("Database.xlsx"));
-        jfc.setApproveButtonText("Save");
-    
+        jfc.setCurrentDirectory(database);
+        jfc.setSelectedFile(database.getAbsoluteFile());    
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        jfc.setApproveButtonText("Save");
     
         int result = jfc.showSaveDialog(null);
         if(result == JFileChooser.APPROVE_OPTION)
         {
-            // System.out.println(jfc.getSelectedFile().toString());
-            // switch(jfc.getSelectedFile().toString())
-            // {
-            //     case: "Database.xlsx"
-            //     {
-            //         JOptionPane.showMessageDialog(jfc, "You can't choose this file.");
-            //     }
-            // }
             File out = new File(jfc.getSelectedFile().toString());
             // System.out.println(out.getAbsolutePath());
             // int BUF_SIZE = (int) in.length();
@@ -85,14 +74,15 @@ public class SavePrompt extends JPanel { // https://stackoverflow.com/a/23143716
             // saveFrame.setVisible(false);
 
             //Implement overwriting Database.xlsx
-            try {
-                if(f.equals(out))
+            try 
+            {
+                if(database.equals(out))
                 {
                     Library.write(out);
                 }
                 else
                 {
-                    Library.write(f);
+                    Library.write(database);
                     Library.write(out);
                 }
             } catch(Exception e) {
@@ -102,15 +92,5 @@ public class SavePrompt extends JPanel { // https://stackoverflow.com/a/23143716
         else if(result == JFileChooser.CANCEL_OPTION){
             saveFrame.setVisible(false);
         }
-    
-        // SPanel.setLayout(new FlowLayout());
-        // SPanel.add(jfc);
-    
-        // saveFrame.setLayout(new FlowLayout());
-        // saveFrame.add(SPanel);
-        // saveFrame.pack();
-        // saveFrame.setTitle("Save your Doc");
-        // saveFrame.setLocationRelativeTo(null);
-        // saveFrame.setVisible(true);
     }
 }

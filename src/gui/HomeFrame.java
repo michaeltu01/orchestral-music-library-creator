@@ -68,14 +68,7 @@ public class HomeFrame extends JPanel {
             private void importButtonActionPerformed(ActionEvent evt) 
             {
                 ImportFrame impF = new ImportFrame(LIBRARY);
-                JFrame frame = new JFrame("Import Composition");
-        
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                frame.getContentPane().add(impF, BorderLayout.CENTER);
-                frame.pack();
-                frame.setVisible(true);
-        
-                // System.out.println(LIBRARY);
+                impF.setVisible(true);
             }
         });
 
@@ -138,8 +131,8 @@ public class HomeFrame extends JPanel {
 
         Icon helpIcon = new ImageIcon("helpIcon.png");
         helpButton.setIcon(helpIcon);
-        helpButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        helpButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 helpButtonActionPerformed(evt);
             }
 
@@ -174,7 +167,7 @@ public class HomeFrame extends JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(importButton)

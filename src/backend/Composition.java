@@ -61,7 +61,8 @@ public class Composition
         arranger = arr.get(2);
         publisher = arr.get(3);
 
-        if(arr.get(4) == null)
+        if(arr.get(4) == null || arr.get(4) == "")
+
         {
             vbodaGrade = 0;
         }

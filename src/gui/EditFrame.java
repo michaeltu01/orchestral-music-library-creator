@@ -29,10 +29,11 @@ public class EditFrame extends JPanel
     private JLabel publisherLabel;
     private JLabel vbodaGradeLabel;
     private JLabel notesLabel;
-    private JTextField notesField;
+    private JTextArea notesTextArea;
     private JTextField publisherField;
     private JTextField titleField;
     private JTextField vbodaGradeField;
+    private JScrollPane sp;
 
     private static Library library; //Create a general object
     // End of variables declaration//GEN-END:variables
@@ -71,10 +72,12 @@ public class EditFrame extends JPanel
         publisherField = new JTextField();
         vbodaGradeField = new JTextField();
         vbodaGradeLabel = new JLabel();
-        notesField = new JTextField();
+        notesTextArea = new JTextArea();
         notesLabel = new JLabel();
         addButton = new JButton();
         backButton = new JButton();
+        sp = new JScrollPane(notesTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        JPanel editFrame = this;
 
         library = l;
 
@@ -107,7 +110,9 @@ public class EditFrame extends JPanel
         vbodaGradeField.setText("0");
 
         notesLabel.setText("Notes:");
-        notesField.setText("");        
+        notesTextArea.setText("");
+        notesTextArea.setLineWrap(true);
+        notesTextArea.setWrapStyleWord(true);      
 
         addButton.setText("Add");
         addButton.addActionListener(new ActionListener() {
@@ -121,23 +126,32 @@ public class EditFrame extends JPanel
 
             private void addButtonActionPerformed(ActionEvent evt) throws Exception
             {
-                Composition c = new Composition(titleField.getText(),
-                                                    composerField.getText(),
-                                                    arrangerField.getText(),
-                                                    publisherField.getText(),
-                                                    Integer.parseInt(vbodaGradeField.getText()),
-                                                    notesField.getText());
-                library.append(c);
-                library.sortByTitle();
-        
-                EditSummaryFrame esFrame = new EditSummaryFrame(c, library);
-                JFrame frame = new JFrame("EditConfirmationFrame");
-        
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                frame.getContentPane().add(esFrame, BorderLayout.CENTER);
-                frame.pack();
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
+                if(Integer.parseInt(vbodaGradeField.getText()) < 0 || Integer.parseInt(vbodaGradeField.getText()) > 6)
+                {
+                    JOptionPane.showMessageDialog(editFrame, "Invalid input", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    vbodaGradeField.setText("0");
+                }
+
+                else
+                {
+                    Composition c = new Composition(titleField.getText(),
+                                                        composerField.getText(),
+                                                        arrangerField.getText(),
+                                                        publisherField.getText(),
+                                                        Integer.parseInt(vbodaGradeField.getText()),
+                                                        notesTextArea.getText());
+                    library.append(c);
+                    library.sortByTitle();
+            
+                    EditSummaryFrame esFrame = new EditSummaryFrame(c, library);
+                    JFrame frame = new JFrame("EditConfirmationFrame");
+            
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frame.getContentPane().add(esFrame, BorderLayout.CENTER);
+                    frame.pack();
+                    frame.setLocationRelativeTo(null);
+                    frame.setVisible(true);
+                }
             }
         });
 
@@ -175,7 +189,7 @@ public class EditFrame extends JPanel
                                 .addGap(24, 24, 24)
                                 .addComponent(notesLabel)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(notesField, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(sp, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
@@ -234,7 +248,7 @@ public class EditFrame extends JPanel
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(notesLabel)
-                    .addComponent(notesField, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sp, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
@@ -256,10 +270,12 @@ public class EditFrame extends JPanel
         publisherField = new JTextField();
         vbodaGradeField = new JTextField();
         vbodaGradeLabel = new JLabel();
-        notesField = new JTextField();
+        notesTextArea = new JTextArea();
         notesLabel = new JLabel();
         addButton = new JButton();
         backButton = new JButton();
+        sp = new JScrollPane(notesTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        JPanel editFrame = this;
 
         library = l;
 
@@ -293,8 +309,10 @@ public class EditFrame extends JPanel
         vbodaGradeField.setText(edit.getVbodaGrade().toString());
 
         notesLabel.setText("Notes:");
-        notesField.setText(edit.getNotes());        
-
+        notesTextArea.setText(edit.getNotes());
+        notesTextArea.setLineWrap(true);
+        notesTextArea.setWrapStyleWord(true);
+        
         addButton.setText("Save");
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -307,33 +325,41 @@ public class EditFrame extends JPanel
 
             private void addButtonActionPerformed(ActionEvent evt) throws Exception
             {
-
-                Composition c = new Composition(titleField.getText(),
-                                                            composerField.getText(),
-                                                            arrangerField.getText(),
-                                                            publisherField.getText(),
-                                                            Integer.parseInt(vbodaGradeField.getText()),
-                                                            notesField.getText());
-                if(ifAdd)
+                if(Integer.parseInt(vbodaGradeField.getText()) < 0 || Integer.parseInt(vbodaGradeField.getText()) > 6)
                 {
-                    library.append(c);
+                    JOptionPane.showMessageDialog(editFrame, "Invalid input", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    vbodaGradeField.setText("0");
                 }
+
                 else
                 {
-                    library.replace(index, c);
-                    ViewFrame.resetResults();
-                    Object[][] data = new Object [ViewFrame.numSearchResults()][6];
-                    ViewFrame.populateTable(ViewFrame.retrieveData(data));
-                }
-                library.sortByTitle();
+                    Composition c = new Composition(titleField.getText(),
+                                                                composerField.getText(),
+                                                                arrangerField.getText(),
+                                                                publisherField.getText(),
+                                                                Integer.parseInt(vbodaGradeField.getText()),
+                                                                notesTextArea.getText());
+                    if(ifAdd)
+                    {
+                        library.append(c);
+                    }
+                    else
+                    {
+                        library.replace(index, c);
+                        ViewFrame.resetResults();
+                        Object[][] data = new Object [ViewFrame.numSearchResults()][6];
+                        ViewFrame.populateTable(ViewFrame.retrieveData(data));
+                    }
+                    library.sortByTitle();
 
-                EditSummaryFrame esFrame = new EditSummaryFrame(c, library);
-                JFrame frame = new JFrame("EditConfirmationFrame");
-        
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                frame.getContentPane().add(esFrame, BorderLayout.CENTER);
-                frame.pack();
-                frame.setVisible(true);
+                    EditSummaryFrame esFrame = new EditSummaryFrame(c, library);
+                    JFrame frame = new JFrame("EditConfirmationFrame");
+            
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frame.getContentPane().add(esFrame, BorderLayout.CENTER);
+                    frame.pack();
+                    frame.setVisible(true);
+                }
             }
         });
 
@@ -371,7 +397,7 @@ public class EditFrame extends JPanel
                                 .addGap(24, 24, 24)
                                 .addComponent(notesLabel)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(notesField, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(sp, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
@@ -430,37 +456,12 @@ public class EditFrame extends JPanel
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(notesLabel)
-                    .addComponent(notesField, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sp, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
                     .addComponent(backButton))
                 .addContainerGap())
         );
-    }
-
-    public static void main(String[] args)
-    {
-        JFrame frame = new JFrame("EditFrame");
-
-        frame.addWindowListener(new WindowAdapter(){
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                // JFrame sframe = new JFrame("Do you want to save?");
-
-                // sframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                // sframe.getContentPane().add(new SavePrompt(library), BorderLayout.CENTER);
-                // sframe.pack();
-                // sframe.setVisible(true);
-
-                SavePrompt sp = new SavePrompt(library);
-                sp.setVisible(true);
-            }});
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(new EditFrame(library), BorderLayout.CENTER);
-        frame.pack();
-        frame.setVisible(true);
     }
 }
