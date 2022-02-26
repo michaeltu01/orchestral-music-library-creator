@@ -1,16 +1,12 @@
 package src.gui;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.swing.*;
-import java.awt.*;
 
 import src.backend.Library;
-import src.backend.Composition;
 
 public class ImportFrame extends JFileChooser { // https://stackoverflow.com/a/23143716 
 

@@ -67,7 +67,8 @@ public class Library
 
     public ArrayList<Composition> getAll()
     {
-        return metadata;
+        ArrayList<Composition> arr = metadata;
+        return arr;
     }
 
     public int size()
@@ -98,7 +99,10 @@ public class Library
 
     public Composition remove(Composition c)
     {
-        return metadata.remove(this.getIndex(c));
+        System.out.println("Metadata is... " + metadata);
+        System.out.println("'this' is... " + this);
+        System.out.println("this.getIndex(c): " + this.getIndex(c));
+        return metadata.remove(getIndex(c));
     }
 
     public Composition replace(int index, Composition c)
@@ -121,7 +125,7 @@ public class Library
             int i = j-1;
             while ((i > -1) && (metadata.get(i).getTitle().compareTo(currtitle) > 0))
             {
-                this.replace(i+1, this.getComposition(i));
+                replace(i+1, getComposition(i));
                 i--;
             }
             this.replace(i+1, curr);
@@ -325,7 +329,7 @@ public class Library
                             arr.add(String.valueOf((int)cell.getNumericCellValue()));  
                             break;
                         case BLANK:
-                            arr.add(null);
+                            arr.add("");
                             break;
                         default:
                             System.out.println("This is the default operation");
@@ -361,28 +365,21 @@ public class Library
         System.out.println("Metadata list size: " + metadata.size());
         for (int i = 0; i < metadata.size(); i++) 
         {
-            XSSFRow row = sheet.createRow(rowid++);
+            XSSFRow row = sheet.createRow(rowid+1);
             Composition c = metadata.get(i);
             ArrayList<String> arr = c.toStringArrayList();
   
             for (int j = 0; j < 6; j++) // j == num of instance variables in a Composition
             {
                 Cell cell = row.createCell(j);
-                // if(arr.get(j).getClass().getSimpleName().equals("Integer"))
-                // {
-                //     CellStyle intStyle = wb.createCellStyle();
-                //     DataFormat format = wb.createDataFormat();
-
-                //     intStyle.setDataFormat(format.getFormat("0"));
-                //     cell.setCellStyle(intStyle);
-                //     cell.setCellValue(arr.get(j));
-                // }
-                // else
-                // {
-                //     cell.setCellValue(arr.get(j));
-                // }
                 cell.setCellValue(arr.get(j));
             }
+            rowid++;
+        }
+        while(rowid <= sheet.getLastRowNum()) // No need for rowid++ because rowid++ has incremented from the last iteration of the for loop
+        {
+            sheet.removeRow(sheet.getRow(rowid));
+            rowid++;
         }
   
         // .xlsx is the format for Excel Sheets...
@@ -396,13 +393,14 @@ public class Library
     //toString
     public String toString()
     {
-        String temp = "";
+        // String temp = "";
 
-        for(int i = 0; i < metadata.size(); i++)
-        {
-            temp = temp + i + ": " + metadata.get(i).toString() + "\n";
-        }
+        // for(int i = 0; i < metadata.size(); i++)
+        // {
+        //     temp = temp + i + ": " + metadata.get(i).toString() + "\n";
+        // }
 
-        return temp;
+        // return temp;
+        return metadata.toString();
     }
 }

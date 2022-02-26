@@ -18,7 +18,7 @@ import src.backend.Library;
  */
 public class ViewFrame extends JPanel {
 
-    private JLabel directions;
+    private static JLabel directions;
     private JButton backButton;
     private JButton deleteButton;
     private JButton clearLibraryButton;
@@ -78,9 +78,7 @@ public class ViewFrame extends JPanel {
                 resetResults();
                 Object[][] data = new Object [results.size()][6];
                 retrieveData(data);
-                populateTable(data);
-                directions.setHorizontalAlignment(SwingConstants.CENTER);
-                directions.setText("Search for the composition below. Number of results: " + numSearchResults()); 
+                populateTable(data); 
             }
         });
 
@@ -140,13 +138,30 @@ public class ViewFrame extends JPanel {
 
             private void deleteButtonActionPerformed(ActionEvent evt)
             {
-                int row = searchResults.getSelectedRow();
-                Composition c = results.get(row);
-                results.remove(c);
-                library.remove(c);
-        
-                Object[][] data = new Object[results.size()][6];
-                populateTable(retrieveData(data));
+                Object[] options = {"Yes", "No"};
+                
+                int result = JOptionPane.showOptionDialog(viewFrame, "Are you sure you want to delete this composition?", "Delete", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                switch (result)
+                {
+                    case 0:
+                        int row = searchResults.getSelectedRow();
+                        Composition c = results.get(row);
+                        System.out.println("Index of composition in Library: " + library.getIndex(c));
+                        System.out.println("This is results before removal: " + results);
+                        System.out.println("This is Library before removal: " + library);
+
+                        results.remove(c);
+
+                        System.out.println("This is results after removal:" + results);
+                        System.out.println("This is Library after removal:" + results);
+
+                        // library.remove(c); 
+
+                        Object[][] data = new Object[results.size()][6];
+                        populateTable(retrieveData(data));
+                    case 1:
+                        JOptionPane.getRootFrame().dispose(); 
+                }
             }
         });
 
@@ -177,20 +192,6 @@ public class ViewFrame extends JPanel {
             {
                 String str = "<html>Hit ENTER on an empty search bar to see your entire library.<br>"
                                 + "Search '0' to see all compositions with a VBODA grade of 0 (i.e. has no VBODA grade)<html>";
-                // JDialog help = new JDialog();
-                // JLabel instructions = new JLabel();
-
-                // instructions.setText("<html>Hit ENTER on an empty search bar to see your entire library.<br>"
-                //                         + "Search '0' to see all compositions with a VBODA grade of 0 (i.e. has no VBODA grade)<html>");
-                // instructions.setHorizontalAlignment(JLabel.CENTER);
-                // help.add(instructions);
-
-                // help.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                // help.setSize(550, 150);
-                // System.out.println(help.getPreferredSize());
-                // help.setLocationRelativeTo(null);
-                // help.setVisible(true);
-
                 JOptionPane.showMessageDialog(viewFrame, str);
             }
         });
@@ -320,6 +321,8 @@ public class ViewFrame extends JPanel {
                 }
                 });
                 sp.setViewportView(searchResults);
+        directions.setHorizontalAlignment(SwingConstants.CENTER);
+        directions.setText("Search for the composition below. Number of results: " + numSearchResults());
     }
 
     public static Object[][] retrieveData(Object[][] data)
@@ -334,14 +337,5 @@ public class ViewFrame extends JPanel {
         }
 
         return data;
-    }
-
-    public static void main(String[] args)
-    {
-        JFrame frame = new JFrame("ViewFrame");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.getContentPane().add(new ViewFrame(library), BorderLayout.CENTER);
-        frame.pack();
-        frame.setVisible(true);
     }
 }

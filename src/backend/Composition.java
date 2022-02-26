@@ -140,9 +140,10 @@ public class Composition
 
     public boolean isEmpty()
     {
-        ArrayList<String> arr = new ArrayList<String>(Arrays.asList(null, null, null, null, "0", null));
+        ArrayList<String> empty1 = new ArrayList<String>(Arrays.asList(null, null, null, null, "0", null));
+        ArrayList<String> empty2 = new ArrayList<String>(Arrays.asList("", "", "", "", "0", ""));
 
-        if(this.toStringArrayList().equals(arr))
+        if(this.toStringArrayList().equals(empty1) || this.toStringArrayList().equals(empty2))
         {
             return true;
         }
@@ -163,7 +164,7 @@ public class Composition
         arr.add(vbodaGrade.toString());
         arr.add(notes);
 
-        // System.out.println("This is the output of the toStringArrayList() method: " + arr);
+        System.out.println("This is the output of the toStringArrayList() method: " + arr);
 
         return arr;
     }
