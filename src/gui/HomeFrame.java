@@ -212,17 +212,25 @@ public class HomeFrame extends JPanel {
     {
         JFrame frame = new JFrame("HomeFrame");
 
-        frame.addWindowListener(new WindowAdapter(){
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                SavePrompt sp = new SavePrompt(LIBRARY);
-                sp.setVisible(true);
-            }});
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.getContentPane().add(new HomeFrame(), BorderLayout.CENTER);
         frame.pack();
         frame.setVisible(true);
+        frame.addWindowListener(new WindowAdapter(){
+
+            @Override
+            public void windowClosing(WindowEvent e) 
+            {
+                Object[] options = {"Save", "Don't Save"};
+                int result = JOptionPane.showOptionDialog(frame, "Do you want to save?", "Save", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                switch (result)
+                {
+                    case 0:
+                        SavePrompt sp = new SavePrompt(LIBRARY);
+                        sp.setVisible(true);
+                    case 1:
+                        frame.dispose(); 
+                }
+            }});
     }
 }
