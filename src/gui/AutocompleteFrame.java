@@ -14,7 +14,6 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Window;
 import java.awt.event.*;
-import java.io.File;
 import java.util.ArrayList;
 /**
  *
@@ -96,8 +95,8 @@ public class AutocompleteFrame extends JPanel {
                 Composition c = results.get(row);
                 int index = library.getIndex(c);
 
-                EditFrame ef = new EditFrame(library, c, index, true);
                 JFrame frame = new JFrame("Edit composition");
+                EditFrame ef = new EditFrame(frame, library, c, index, true);
 
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.getContentPane().add(ef, BorderLayout.CENTER);

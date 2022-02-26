@@ -120,8 +120,8 @@ public class ViewFrame extends JPanel {
                 Composition c = results.get(row);
                 int index = library.getIndex(c);
 
-                EditFrame ef = new EditFrame(library, c, index, false);
                 JFrame frame = new JFrame("Edit composition");
+                EditFrame ef = new EditFrame(frame, library, c, index, false);
 
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 frame.getContentPane().add(ef, BorderLayout.CENTER);

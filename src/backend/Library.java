@@ -364,7 +364,6 @@ public class Library
             XSSFRow row = sheet.createRow(rowid++);
             Composition c = metadata.get(i);
             ArrayList<String> arr = c.toStringArrayList();
-            int cellid = 0;
   
             for (int j = 0; j < 6; j++) // j == num of instance variables in a Composition
             {

@@ -4,11 +4,9 @@
  */
 package src.gui;
 
-import src.backend.Composition;
 import src.backend.Library;
 
 import java.awt.BorderLayout;
-import java.awt.Window;
 import java.awt.event.*;
 import java.io.File;
 

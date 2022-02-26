@@ -47,9 +47,9 @@ public class EditFrame extends JPanel
         initComponents(l);
     }
 
-    public EditFrame(Library l, Composition c, int index, boolean ifAdd)
+    public EditFrame(JFrame thisFrame, Library l, Composition c, int index, boolean ifAdd)
     {
-        vfComponents(l, c, index, ifAdd);
+        vfComponents(thisFrame, l, c, index, ifAdd);
     }
 
     /**
@@ -85,17 +85,7 @@ public class EditFrame extends JPanel
         directions.setText("Enter information below to add a composition.");
 
         titleLabel.setText("Title:");
-
         titleField.setText("");
-        titleField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                titleFieldActionPerformed(evt);
-            }
-
-            private void titleFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_titleFieldActionPerformed
-                // TODO add your handling code here:
-            }//GEN-LAST:event_titleFieldActionPerformed
-        });
 
         composerLabel.setText("Composer:");
         composerField.setText("");
@@ -142,6 +132,8 @@ public class EditFrame extends JPanel
                                                         notesTextArea.getText());
                     library.append(c);
                     library.sortByTitle();
+
+                    clearFields();
             
                     EditSummaryFrame esFrame = new EditSummaryFrame(c, library);
                     JFrame frame = new JFrame("EditConfirmationFrame");
@@ -257,7 +249,7 @@ public class EditFrame extends JPanel
         );
     }
 
-    private void vfComponents(Library l, Composition edit, int index, boolean ifAdd) { // ifAdd = true (append the metadata); ifAdd = false (replace an existing composition)
+    private void vfComponents(JFrame thisFrame, Library l, Composition edit, int index, boolean ifAdd) { // ifAdd = true (append the metadata); ifAdd = false (replace an existing composition)
 
         directions = new JLabel();
         titleLabel = new JLabel();
@@ -283,18 +275,7 @@ public class EditFrame extends JPanel
         directions.setText("Edit the composition below.");
 
         titleLabel.setText("Title:");
-
         titleField.setText(edit.getTitle());
-        titleField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                titleFieldActionPerformed(evt);
-            }
-
-            private void titleFieldActionPerformed(ActionEvent evt) {//GEN-FIRST:event_titleFieldActionPerformed
-                // TODO add your handling code here:
-                // Add search function here OR on a different frame
-            }//GEN-LAST:event_titleFieldActionPerformed
-        });
 
         composerLabel.setText("Composer:");
         composerField.setText(edit.getComposer());
@@ -359,6 +340,8 @@ public class EditFrame extends JPanel
                     frame.getContentPane().add(esFrame, BorderLayout.CENTER);
                     frame.pack();
                     frame.setVisible(true);
+
+                    thisFrame.dispose();
                 }
             }
         });
@@ -463,5 +446,15 @@ public class EditFrame extends JPanel
                     .addComponent(backButton))
                 .addContainerGap())
         );
+    }
+
+    public void clearFields()
+    {
+        titleField.setText("");
+        composerField.setText("");
+        arrangerField.setText("");
+        publisherField.setText("");
+        vbodaGradeField.setText("0");
+        notesTextArea.setText("");
     }
 }

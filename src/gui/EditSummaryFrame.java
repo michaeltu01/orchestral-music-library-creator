@@ -60,13 +60,13 @@ public class EditSummaryFrame extends JPanel {
             public void actionPerformed(ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
-            // private EditConfirmationFrame frame;
 
-            // public void actionPerformed(ActionEvent evt) {
-            //     frame = new EditConfirmationFrame(c, l);
-            //     backButtonActionPerformed(evt);
-            //     frame.setVisible(false);
-            // }
+            private void backButtonActionPerformed(ActionEvent evt) 
+            {
+                JComponent comp = (JComponent)evt.getSource();
+                Window win = SwingUtilities.getWindowAncestor(comp);
+                win.dispose();
+            }
         });
 
         GroupLayout layout = new GroupLayout(this);
@@ -99,11 +99,4 @@ public class EditSummaryFrame extends JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void backButtonActionPerformed(ActionEvent evt) 
-    {
-        JComponent comp = (JComponent)evt.getSource();
-        Window win = SwingUtilities.getWindowAncestor(comp);
-        win.dispose();
-    }
 }
