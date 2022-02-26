@@ -84,6 +84,7 @@ public class AutocompleteFrame extends JPanel {
         });
 
         addButton.setText("Add");
+        addButton.setMnemonic(KeyEvent.VK_ENTER);
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 addButtonActionPerformed(evt);
@@ -106,6 +107,7 @@ public class AutocompleteFrame extends JPanel {
         });
 
         backButton.setText("Back");
+        backButton.setMnemonic(KeyEvent.VK_BACK_SPACE);
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 backButtonActionPerformed(evt);
@@ -121,6 +123,7 @@ public class AutocompleteFrame extends JPanel {
 
         Icon helpIcon = new ImageIcon("helpIcon.png");
         helpButton.setIcon(helpIcon);
+        helpButton.setMnemonic(KeyEvent.VK_H);
         helpButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 helpButtonActionPerformed(evt);

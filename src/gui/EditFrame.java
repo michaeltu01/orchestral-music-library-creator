@@ -105,6 +105,7 @@ public class EditFrame extends JPanel
         notesTextArea.setWrapStyleWord(true);      
 
         addButton.setText("Add");
+        addButton.setMnemonic(KeyEvent.VK_ENTER);
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 try {
@@ -143,11 +144,15 @@ public class EditFrame extends JPanel
                     frame.pack();
                     frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
+
+                    frame.getRootPane().setDefaultButton(esFrame.backButton);
+                    esFrame.backButton.requestFocus();
                 }
             }
         });
 
         backButton.setText("Back");
+        backButton.setMnemonic(KeyEvent.VK_BACK_SPACE);
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 backButtonActionPerformed(evt);
@@ -295,6 +300,7 @@ public class EditFrame extends JPanel
         notesTextArea.setWrapStyleWord(true);
         
         addButton.setText("Save");
+        addButton.setMnemonic(KeyEvent.VK_ENTER);
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 try {
@@ -347,6 +353,7 @@ public class EditFrame extends JPanel
         });
 
         backButton.setText("Cancel");
+        backButton.setMnemonic(KeyEvent.VK_BACK_SPACE);
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 backButtonActionPerformed(evt);

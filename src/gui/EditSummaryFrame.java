@@ -17,7 +17,7 @@ import javax.swing.*;
  */
 public class EditSummaryFrame extends JPanel {
 
-    private JButton backButton;
+    public JButton backButton;
     private JTextPane metadata;
     private JLabel title;
     private JScrollPane sp;
@@ -55,7 +55,7 @@ public class EditSummaryFrame extends JPanel {
                             + "<br>VBODA Grade: " + c.getVbodaGrade()
                             + "<br>Notes: " + c.getNotes() + "</html>");
 
-        backButton.setText("Back");
+        backButton.setText("OK");
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 backButtonActionPerformed(evt);

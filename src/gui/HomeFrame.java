@@ -58,6 +58,7 @@ public class HomeFrame extends JPanel {
         directions.setText("Select a button below to get started.");
 
         importButton.setText("Import Library");
+        importButton.setMnemonic(KeyEvent.VK_1);
         importButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 importButtonActionPerformed(evt);
@@ -71,6 +72,7 @@ public class HomeFrame extends JPanel {
         });
 
         addButton.setText("Add music");
+        addButton.setMnemonic(KeyEvent.VK_2);
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 addButtonActionPerformed(evt);
@@ -89,26 +91,8 @@ public class HomeFrame extends JPanel {
             }
         });
 
-        viewButton.setText("View Library");
-        viewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                viewButtonActionPerformed(evt);
-            }
-
-            private void viewButtonActionPerformed(ActionEvent evt) 
-            {
-                ViewFrame vf = new ViewFrame(LIBRARY);
-                JFrame frame = new JFrame("View Library");
-        
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                frame.getContentPane().add(vf, BorderLayout.CENTER);
-                frame.pack();
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-            }
-        });
-
         autocompleteButton.setText("Input using title");
+        autocompleteButton.setMnemonic(KeyEvent.VK_3);
         autocompleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 autocompleteButtonActionPerformed(evt);
@@ -127,8 +111,29 @@ public class HomeFrame extends JPanel {
             }
         });
 
+        viewButton.setText("View Library");
+        viewButton.setMnemonic(KeyEvent.VK_4);
+        viewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                viewButtonActionPerformed(evt);
+            }
+
+            private void viewButtonActionPerformed(ActionEvent evt) 
+            {
+                ViewFrame vf = new ViewFrame(LIBRARY);
+                JFrame frame = new JFrame("View Library");
+        
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.getContentPane().add(vf, BorderLayout.CENTER);
+                frame.pack();
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+            }
+        });
+
         Icon helpIcon = new ImageIcon("helpIcon.png");
         helpButton.setIcon(helpIcon);
+        helpButton.setMnemonic(KeyEvent.VK_H);
         helpButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 helpButtonActionPerformed(evt);

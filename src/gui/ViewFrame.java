@@ -109,6 +109,7 @@ public class ViewFrame extends JPanel {
         });
 
         editButton.setText("Edit");
+        editButton.setMnemonic(KeyEvent.VK_ENTER);
         editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 editButtonActionPerformed(evt);
@@ -131,6 +132,7 @@ public class ViewFrame extends JPanel {
         });
 
         deleteButton.setText("Delete");
+        deleteButton.setMnemonic(KeyEvent.VK_DELETE);
         deleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
@@ -149,6 +151,7 @@ public class ViewFrame extends JPanel {
         });
 
         backButton.setText("Back");
+        backButton.setMnemonic(KeyEvent.VK_BACK_SPACE);
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 backButtonActionPerformed(evt);
@@ -164,6 +167,7 @@ public class ViewFrame extends JPanel {
 
         Icon helpIcon = new ImageIcon("helpIcon.png");
         helpButton.setIcon(helpIcon);
+        helpButton.setMnemonic(KeyEvent.VK_H);
         helpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 helpButtonActionPerformed(evt);
