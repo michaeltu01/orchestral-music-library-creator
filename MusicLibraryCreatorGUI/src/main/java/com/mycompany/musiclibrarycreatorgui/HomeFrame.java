@@ -4,6 +4,7 @@
  */
 package com.mycompany.musiclibrarycreatorgui;
 
+import java.awt.BorderLayout;
 import javax.swing.*;
 
 /**
@@ -30,7 +31,6 @@ public class HomeFrame extends javax.swing.JPanel {
     private void initComponents() {
 
         welcomeMessage = new javax.swing.JLabel();
-        directions = new javax.swing.JLabel();
         importButton = new javax.swing.JButton();
         addButton = new javax.swing.JButton();
         viewButton = new javax.swing.JButton();
@@ -39,8 +39,7 @@ public class HomeFrame extends javax.swing.JPanel {
 
         welcomeMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeMessage.setText("Welcome Mr. Kelly to the Orchestra Music Library Creator!");
-
-        directions.setText("Select a button below to get started.");
+        welcomeMessage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         importButton.setText("Import library");
         importButton.addActionListener(new java.awt.event.ActionListener() {
@@ -82,41 +81,39 @@ public class HomeFrame extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 123, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(welcomeMessage)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(importButton)
+                        .addComponent(importButton, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(addButton)
+                        .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(autocompleteButton)
+                        .addComponent(autocompleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(viewButton)
-                        .addContainerGap(138, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(welcomeMessage)
-                            .addComponent(directions))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
-                        .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))))
+                        .addComponent(viewButton, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(welcomeMessage)
-                    .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(directions)
-                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(welcomeMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                        .addGap(40, 40, 40))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(importButton)
-                    .addComponent(addButton)
-                    .addComponent(viewButton)
-                    .addComponent(autocompleteButton))
+                    .addComponent(importButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(autocompleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -145,10 +142,26 @@ public class HomeFrame extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton autocompleteButton;
-    private javax.swing.JLabel directions;
     private javax.swing.JButton helpButton;
     private javax.swing.JButton importButton;
     private javax.swing.JButton viewButton;
     private javax.swing.JLabel welcomeMessage;
     // End of variables declaration//GEN-END:variables
+    
+    public static void main(String[] args)
+    {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+//                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                JFrame frame = new JFrame("This is a frame.");
+
+                frame.getContentPane().add(new HomeFrame(), BorderLayout.CENTER);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setVisible(true);
+            }
+        });
+    }
+
 }

@@ -53,9 +53,10 @@ public class HomeFrame extends JPanel {
         JPanel homeFrame = this;
 
         welcomeMessage.setHorizontalAlignment(SwingConstants.CENTER);
-        welcomeMessage.setText("Welcome Mr. Kelly to the Orchestra Music Library Creator!");
+        welcomeMessage.setText("<html><center>Welcome Mr. Kelly to the Orchestra Music Library Creator!<br>Select a button below to get started.<center><html>");
+        welcomeMessage.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        directions.setText("Select a button below to get started.");
+        // directions.setText("Select a button below to get started.");
 
         importButton.setText("Import Library");
         importButton.setMnemonic(KeyEvent.VK_1);
@@ -144,7 +145,7 @@ public class HomeFrame extends JPanel {
                 String str = "<html>\"Import library\": Overwrites the current library with an existing Excel file <br>"
                                 + "\"Add music\": Adds a new composition<br>"
                                 + "\"Input using title\": Searches the VBODA Database for a composition<br>"
-                                + "\"View library\": View, edit, and delete compositions";
+                                + "\"View library\": View, edit, and delete compositions<html>";
                 // JDialog help = new JDialog();
                 // JLabel instructions = new JLabel();
 
@@ -170,70 +171,74 @@ public class HomeFrame extends JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(welcomeMessage)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(helpButton, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(importButton)
+                        .addComponent(importButton, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(addButton)
+                        .addComponent(addButton, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(autocompleteButton)
+                        .addComponent(autocompleteButton, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(viewButton)
-                        .addContainerGap(25, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                            .addComponent(welcomeMessage)
-                            .addComponent(directions))
-                        .addGap(36, 36, 36)
-                        .addComponent(helpButton)
-                        .addContainerGap())))
+                        .addComponent(viewButton, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
+                    .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(helpButton, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(welcomeMessage, GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                        .addGap(40, 40, 40))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(welcomeMessage)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(directions)))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(importButton)
-                    .addComponent(addButton)
-                    .addComponent(viewButton)
-                    .addComponent(autocompleteButton))
-                .addContainerGap())
+                        .addComponent(helpButton, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)))
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(importButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(viewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(autocompleteButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String[] args)
     {
-        JFrame frame = new JFrame("HomeFrame");
-
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.getContentPane().add(new HomeFrame(), BorderLayout.CENTER);
-        frame.pack();
-        frame.setVisible(true);
-        frame.addWindowListener(new WindowAdapter(){
+        java.awt.EventQueue.invokeLater(new Runnable() {
 
             @Override
-            public void windowClosing(WindowEvent e) 
+            public void run() 
             {
-                Object[] options = {"Save", "Don't Save"};
-                int result = JOptionPane.showOptionDialog(frame, "Do you want to save?", "Save", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-                switch (result)
-                {
-                    case 0:
-                        SavePrompt sp = new SavePrompt(LIBRARY);
-                        sp.setVisible(true);
-                    case 1:
-                        frame.dispose(); 
-                }
-            }});
+                JFrame frame = new JFrame("HomeFrame");
+
+                frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                frame.getContentPane().add(new HomeFrame(), BorderLayout.CENTER);
+                frame.pack();
+                frame.setVisible(true);
+                // frame.setResizable(false);
+                frame.addWindowListener(new WindowAdapter(){
+
+                    @Override
+                    public void windowClosing(WindowEvent e) 
+                    {
+                        Object[] options = {"Save", "Don't Save"};
+                        int result = JOptionPane.showOptionDialog(frame, "Do you want to save?", "Save", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                        switch (result)
+                        {
+                            case 0:
+                                SavePrompt sp = new SavePrompt(LIBRARY);
+                                sp.setVisible(true);
+                            case 1:
+                                frame.dispose(); 
+                        }
+                    }});
+            }
+        });
     }
 }
