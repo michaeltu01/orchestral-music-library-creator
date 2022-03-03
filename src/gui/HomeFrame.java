@@ -19,7 +19,6 @@ public class HomeFrame extends JPanel {
 
     private JButton addButton;
     private JButton autocompleteButton;
-    private JLabel directions;
     private JButton importButton;
     private JButton viewButton;
     private JLabel welcomeMessage;
@@ -44,7 +43,6 @@ public class HomeFrame extends JPanel {
     private void initComponents() {
 
         welcomeMessage = new JLabel();
-        directions = new JLabel();
         importButton = new JButton();
         addButton = new JButton();
         viewButton = new JButton();
@@ -55,8 +53,6 @@ public class HomeFrame extends JPanel {
         welcomeMessage.setHorizontalAlignment(SwingConstants.CENTER);
         welcomeMessage.setText("<html><center>Welcome Mr. Kelly to the Orchestra Music Library Creator!<br>Select a button below to get started.<center><html>");
         welcomeMessage.setHorizontalTextPosition(SwingConstants.CENTER);
-
-        // directions.setText("Select a button below to get started.");
 
         importButton.setText("Import Library");
         importButton.setMnemonic(KeyEvent.VK_1);
@@ -146,21 +142,6 @@ public class HomeFrame extends JPanel {
                                 + "\"Add music\": Adds a new composition<br>"
                                 + "\"Input using title\": Searches the VBODA Database for a composition<br>"
                                 + "\"View library\": View, edit, and delete compositions<html>";
-                // JDialog help = new JDialog();
-                // JLabel instructions = new JLabel();
-
-                // instructions.setText("<html>\"Import library\": Overwrites the current library with an existing Excel file <br>"
-                //                         + "\"Add music\": Adds a new composition<br>"
-                //                         + "\"Input using title\": Searches the VBODA Database for a composition<br>"
-                //                         + "\"View library\": View, edit, and delete compositions");
-                // instructions.setHorizontalAlignment(JLabel.CENTER);
-                // help.add(instructions);
-
-                // help.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                // help.setSize(500, 150);
-                // System.out.println(help.getPreferredSize());
-                // help.setLocationRelativeTo(null);
-                // help.setVisible(true);
 
                 JOptionPane.showMessageDialog(homeFrame, str);
             }
@@ -221,7 +202,6 @@ public class HomeFrame extends JPanel {
                 frame.getContentPane().add(new HomeFrame(), BorderLayout.CENTER);
                 frame.pack();
                 frame.setVisible(true);
-                // frame.setResizable(false);
                 frame.addWindowListener(new WindowAdapter(){
 
                     @Override
