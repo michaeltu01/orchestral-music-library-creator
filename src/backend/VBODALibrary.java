@@ -17,13 +17,13 @@ public class VBODALibrary
 
     private static XSSFWorkbook wb;
     private static XSSFSheet sheet;
-    private static final File f = new File("VBODA Music Library.xlsx"); // Put the VBODA Music Library into a zip folder
+    private static final File F = new File("VBODA Music Library.xlsx"); // Put the VBODA Music Library into a zip folder
 
     //Constructor
     public VBODALibrary()
     {
         vbodaLibrary = new ArrayList<Composition>();
-        read(f);
+        read(F);
     }
 
     //Getters
@@ -102,17 +102,16 @@ public class VBODALibrary
         ArrayList<Composition> compositions = new ArrayList<Composition>();
         try
         {
-            // Copied from https://www.javatpoint.com/how-to-read-excel-file-in-java
-            FileInputStream fis = new FileInputStream(xlsx);   //obtaining bytes from the file  
-            wb = new XSSFWorkbook(fis); //creating Workbook instance that refers to .xlsx file
-            sheet = wb.getSheetAt(0);     //creating a Sheet object to retrieve object  
+            FileInputStream fis = new FileInputStream(xlsx); // Obtaining bytes from the file  
+            wb = new XSSFWorkbook(fis); // Creating Workbook instance that refers to .xlsx file
+            sheet = wb.getSheetAt(0); // Creating a Sheet object to retrieve object
 
-            Iterator<Row> itr = sheet.iterator();    //iterating over excel file
+            Iterator<Row> itr = sheet.iterator(); // Iterating over Excel file
 
             while (itr.hasNext())                 
             {  
                 Row row = itr.next(); 
-                ArrayList<String> arr = new ArrayList<String>();    //individiual composition vbodaLibrary
+                ArrayList<String> arr = new ArrayList<String>(); //Individual composition vbodaLibrary
                 int rowLength = row.getPhysicalNumberOfCells();
 
                 // while (cellIterator.hasNext())
@@ -132,10 +131,10 @@ public class VBODALibrary
 
                     switch (cell.getCellTypeEnum())               
                     {  
-                        case STRING:    //field that represents string cell type  
+                        case STRING: // Field that represents string cell type  
                             arr.add(cell.getStringCellValue());  
                             break;
-                        case NUMERIC:    //field that represents number cell type  
+                        case NUMERIC: // Field that represents number cell type  
                             arr.add(String.valueOf((int)cell.getNumericCellValue()));  
                             break;
                         case BLANK:

@@ -13,7 +13,7 @@ public class Composition
     private Integer vbodaGrade;
     private String notes;
 
-    //Constructors; make more constructors later
+    //Constructors
     public Composition()
     {
         title = "";
@@ -22,26 +22,6 @@ public class Composition
         publisher = "";
         vbodaGrade = 0;
         notes = "";
-    }
-
-    public Composition(String title, String composer, String publisher)
-    {
-        this.title = title;
-        this.composer = composer;
-        arranger = "";
-        this.publisher = publisher;
-        vbodaGrade = 0;
-        notes = "";
-    }
-
-    public Composition(String title, String composer, String publisher, Integer vbodaGrade, String notes)
-    {
-        this.title = title;
-        this.composer = composer;
-        arranger = "";
-        this.publisher = publisher;
-        this.vbodaGrade = vbodaGrade;
-        this.notes = notes;
     }
 
     public Composition(String title, String composer, String arranger, String publisher, Integer vbodaGrade, String notes)
@@ -184,14 +164,13 @@ public class Composition
     }
 
     //toString
-    // BUG: Make into better format
     public String toString()
     {
-        return title + ", " +
+        return "[" + title + ", " +
             composer + ", " +
             arranger + ", " +
             publisher + ", " +
             vbodaGrade + ", " +
-            notes;
+            notes + "]";
     }
 }

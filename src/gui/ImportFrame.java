@@ -8,8 +8,9 @@ import javax.swing.*;
 
 import src.backend.Library;
 
-public class ImportFrame extends JFileChooser { // https://stackoverflow.com/a/23143716 
-
+public class ImportFrame extends JFileChooser 
+{
+    // Instance variables
     private static JFileChooser jfc;
     private static Library library;
     private static File database;
@@ -38,8 +39,10 @@ public class ImportFrame extends JFileChooser { // https://stackoverflow.com/a/2
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
         int result = jfc.showSaveDialog(null);
+
         if(result == JFileChooser.APPROVE_OPTION)
         {
+            // Check if selected file is the database
             if(jfc.getSelectedFile().getAbsolutePath().equals(database.getAbsolutePath()))
             {
                 System.out.println("You chose the database.");
@@ -48,28 +51,8 @@ public class ImportFrame extends JFileChooser { // https://stackoverflow.com/a/2
             else
             {
                 File in = new File(jfc.getSelectedFile().getAbsolutePath());
-                // System.out.println(out.getAbsolutePath());
-                // int BUF_SIZE = (int) in.length();
-        
-                // FileInputStream fiss = new FileInputStream(in);
-                // FileOutputStream foss = new FileOutputStream(out);
-                // try{
-                //     byte[] buf = new byte[BUF_SIZE];
-                //     int i = 0;
-                //     while((i = fiss.read(buf)) != -1){
-                //         foss.write(buf, 0, i);
-                //     }
-                // }
-                // catch(Exception e){
-                //     throw e;
-                // }
-                // finally{
-                //     if(fiss != null) fiss.close();
-                //     if(foss != null) foss.close();
-                // }
-                // importFrame.setVisible(false);
 
-                //Implement read from Database.xlsx
+                //Read from Database.xlsx
                 try {
                     Library.read(in);
                     library.sortByTitle();
@@ -78,6 +61,8 @@ public class ImportFrame extends JFileChooser { // https://stackoverflow.com/a/2
                 }
             }
         }
+        
+        // Close out of the JFileChooser
         else if(result == JFileChooser.CANCEL_OPTION){
             jfc.setVisible(false);
         }

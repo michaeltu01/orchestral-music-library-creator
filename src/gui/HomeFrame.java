@@ -15,8 +15,9 @@ import javax.swing.*;
  *
  * @author Michael Tu
  */
-public class HomeFrame extends JPanel {
-
+public class HomeFrame extends JPanel 
+{
+    // Instance variables
     private JButton addButton;
     private JButton autocompleteButton;
     private JButton importButton;
@@ -29,7 +30,8 @@ public class HomeFrame extends JPanel {
     /**
      * Creates new form HomeFrame
      */
-    public HomeFrame() {
+    public HomeFrame()
+    {
         initComponents();
     }
 
@@ -40,8 +42,8 @@ public class HomeFrame extends JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
+    private void initComponents() 
+    {
         welcomeMessage = new JLabel();
         importButton = new JButton();
         addButton = new JButton();
@@ -61,6 +63,7 @@ public class HomeFrame extends JPanel {
                 importButtonActionPerformed(evt);
             }
 
+            // Open ImportFrame
             private void importButtonActionPerformed(ActionEvent evt) 
             {
                 ImportFrame impF = new ImportFrame(LIBRARY);
@@ -75,6 +78,7 @@ public class HomeFrame extends JPanel {
                 addButtonActionPerformed(evt);
             }
 
+            // Open EditFrame
             private void addButtonActionPerformed(ActionEvent evt) 
             {
                 EditFrame ef = new EditFrame(LIBRARY);
@@ -95,6 +99,7 @@ public class HomeFrame extends JPanel {
                 autocompleteButtonActionPerformed(evt);
             }
 
+            // Open AutocompleteFrame
             private void autocompleteButtonActionPerformed(ActionEvent evt) 
             {
                 AutocompleteFrame af = new AutocompleteFrame(LIBRARY);
@@ -115,6 +120,7 @@ public class HomeFrame extends JPanel {
                 viewButtonActionPerformed(evt);
             }
 
+            // Open ViewFrame
             private void viewButtonActionPerformed(ActionEvent evt) 
             {
                 ViewFrame vf = new ViewFrame(LIBRARY);
@@ -136,6 +142,7 @@ public class HomeFrame extends JPanel {
                 helpButtonActionPerformed(evt);
             }
 
+            // Offers client help
             private void helpButtonActionPerformed(ActionEvent evt) 
             {
                 String str = "<html>\"Import library\": Overwrites the current library with an existing Excel file <br>"

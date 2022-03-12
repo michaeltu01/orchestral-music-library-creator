@@ -16,8 +16,9 @@ import src.backend.Library;
  *
  * @author Michael Tu
  */
-public class ViewFrame extends JPanel {
-
+public class ViewFrame extends JPanel
+{
+    // Instance variables
     private static JLabel directions;
     private JButton backButton;
     private JButton deleteButton;
@@ -46,8 +47,8 @@ public class ViewFrame extends JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(Library l) {
-
+    private void initComponents(Library l)
+    {
         directions = new JLabel();
         titleLabel = new JLabel();
         titleField = new JTextField();

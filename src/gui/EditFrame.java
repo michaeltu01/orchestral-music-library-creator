@@ -17,7 +17,7 @@ import javax.swing.*;
  */
 public class EditFrame extends JPanel 
 {
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Instance variables
     private JButton addButton;
     private JTextField arrangerField;
     private JButton backButton;
@@ -35,18 +35,18 @@ public class EditFrame extends JPanel
     private JTextField vbodaGradeField;
     private JScrollPane sp;
 
-    private static Library library; //Create a general object
-    // End of variables declaration//GEN-END:variables
+    private static Library library;
 
     /**
      * Creates new form EditFrame
      */
     
-    
+    // Default constructor
     public EditFrame(Library l) {
         initComponents(l);
     }
 
+    // Constructor using a parent frame
     public EditFrame(JFrame thisFrame, Library l, Composition c, int index, boolean ifAdd)
     {
         vfComponents(thisFrame, l, c, index, ifAdd);
@@ -59,8 +59,8 @@ public class EditFrame extends JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(Library l) {
-
+    private void initComponents(Library l)
+    {
         directions = new JLabel();
         titleLabel = new JLabel();
         titleField = new JTextField();
@@ -115,6 +115,7 @@ public class EditFrame extends JPanel
                 }
             }
 
+            // Add composition to library
             private void addButtonActionPerformed(ActionEvent evt) throws Exception
             {
                 if(Integer.parseInt(vbodaGradeField.getText()) < 0 || Integer.parseInt(vbodaGradeField.getText()) > 6)
@@ -158,6 +159,7 @@ public class EditFrame extends JPanel
                 backButtonActionPerformed(evt);
             }
 
+            // Return to previous frame
             private void backButtonActionPerformed(ActionEvent evt) 
             {
                 JComponent comp = (JComponent)evt.getSource();
@@ -254,8 +256,8 @@ public class EditFrame extends JPanel
         );
     }
 
-    private void vfComponents(JFrame thisFrame, Library l, Composition edit, int index, boolean ifAdd) { // ifAdd = true (append the metadata); ifAdd = false (replace an existing composition)
-
+    private void vfComponents(JFrame thisFrame, Library l, Composition edit, int index, boolean ifAdd) // ifAdd = true (append the metadata); ifAdd = false (replace an existing composition)
+    { 
         directions = new JLabel();
         titleLabel = new JLabel();
         titleField = new JTextField();
@@ -276,6 +278,7 @@ public class EditFrame extends JPanel
 
         library = l;
 
+        // Populate edit into text fields
         directions.setHorizontalAlignment(SwingConstants.CENTER);
         directions.setText("Edit the composition below.");
 
@@ -310,6 +313,7 @@ public class EditFrame extends JPanel
                 }
             }
 
+            // Add composition to library
             private void addButtonActionPerformed(ActionEvent evt) throws Exception
             {
                 if(Integer.parseInt(vbodaGradeField.getText()) < 0 || Integer.parseInt(vbodaGradeField.getText()) > 6)
@@ -321,12 +325,12 @@ public class EditFrame extends JPanel
                 else
                 {
                     Composition c = new Composition(titleField.getText(),
-                                                                composerField.getText(),
-                                                                arrangerField.getText(),
-                                                                publisherField.getText(),
-                                                                Integer.parseInt(vbodaGradeField.getText()),
-                                                                notesTextArea.getText());
-                    if(ifAdd)
+                                                        composerField.getText(),
+                                                        arrangerField.getText(),
+                                                        publisherField.getText(),
+                                                        Integer.parseInt(vbodaGradeField.getText()),
+                                                        notesTextArea.getText());
+                    if(ifAdd) // Check whether to append or replace
                     {
                         library.append(c);
                     }
@@ -359,6 +363,7 @@ public class EditFrame extends JPanel
                 backButtonActionPerformed(evt);
             }
 
+            // Return to previous frame
             private void backButtonActionPerformed(ActionEvent evt) 
             {
                 JComponent comp = (JComponent)evt.getSource();
@@ -455,6 +460,7 @@ public class EditFrame extends JPanel
         );
     }
 
+    // Clear all text fields
     public void clearFields()
     {
         titleField.setText("");

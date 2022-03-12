@@ -20,8 +20,9 @@ import java.util.ArrayList;
  * @author Michael Tu
  */
 
-public class AutocompleteFrame extends JPanel {
-
+public class AutocompleteFrame extends JPanel
+{
+    //Instance variables
     private JButton addButton;
     private JButton backButton;
     private JLabel directions;
@@ -49,8 +50,8 @@ public class AutocompleteFrame extends JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(Library l) {
-
+    private void initComponents(Library l)
+    {
         directions = new JLabel();
         sp = new JScrollPane();
         searchResults = new JTable();
@@ -74,6 +75,7 @@ public class AutocompleteFrame extends JPanel {
                 titleFieldActionPerformed(evt);
             }
 
+            // Reset the table of results before repopulating it based on the new search
             private void titleFieldActionPerformed(ActionEvent evt) 
             {
                 resetResults();
@@ -90,6 +92,7 @@ public class AutocompleteFrame extends JPanel {
                 addButtonActionPerformed(evt);
             }
 
+            // Populates the composition into a new EditFrame
             private void addButtonActionPerformed(ActionEvent evt) 
             {
                 int row = searchResults.getSelectedRow();
@@ -113,6 +116,7 @@ public class AutocompleteFrame extends JPanel {
                 backButtonActionPerformed(evt);
             }
 
+            // Return to previous frame
             private void backButtonActionPerformed(ActionEvent evt) 
             {
                 JComponent comp = (JComponent)evt.getSource();
@@ -129,11 +133,13 @@ public class AutocompleteFrame extends JPanel {
                 helpButtonActionPerformed(evt);
             }
 
+            // Offers client help
             private void helpButtonActionPerformed(ActionEvent evt)
             {
                 String str = "<html>Hit ENTER on an empty search bar to see your entire library.<br>"
                                 + "Search a number 1-6 to see all compositions with the corresponding VBODA grade<html>";
-                JOptionPane.showMessageDialog(autocompleteFrame, str);            }
+                JOptionPane.showMessageDialog(autocompleteFrame, str);
+            }
         });
 
         GroupLayout layout = new GroupLayout(this);
@@ -185,16 +191,13 @@ public class AutocompleteFrame extends JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public static int numSearchResults()
-    {
-        return results.size();
-    }
-
+    // Resets the results ArrayList
     public static void resetResults()
     {
         results = pullResults();
     }
 
+    // Retrieves the results according to user input from library
     public static ArrayList<Composition> pullResults()
     {
         ArrayList<Composition> arr = new ArrayList<Composition>();
@@ -304,6 +307,7 @@ public class AutocompleteFrame extends JPanel {
         }
     }
 
+    // Populates table with a 2D array representation of the results
     public static void populateTable(Object[][] data)
     {
         searchResults.setModel(new javax.swing.table.DefaultTableModel(data,
@@ -326,6 +330,7 @@ public class AutocompleteFrame extends JPanel {
                 sp.setViewportView(searchResults);
     }
 
+    // Adds results into a 2D array to input into the table
     public static Object[][] retrieveData(Object[][] data)
     {
         for(int i = 0; i < results.size(); i++)

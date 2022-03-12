@@ -292,17 +292,16 @@ public class Library
         ArrayList<Composition> compositions = new ArrayList<Composition>();
         try
         {
-            // Copied from https://www.javatpoint.com/how-to-read-excel-file-in-java
-            FileInputStream fis = new FileInputStream(xlsx);   //obtaining bytes from the file  
-            wb = new XSSFWorkbook(fis); //creating Workbook instance that refers to .xlsx file
-            sheet = wb.getSheetAt(0);     //creating a Sheet object to retrieve object  
+            FileInputStream fis = new FileInputStream(xlsx); // Obtaining bytes from the file
+            wb = new XSSFWorkbook(fis); // Creating Workbook instance that refers to .xlsx file
+            sheet = wb.getSheetAt(0); // Creating a Sheet object that references Excel sheet
 
-            Iterator<Row> itr = sheet.iterator();    //iterating over excel file
+            Iterator<Row> itr = sheet.iterator(); // Iterating over Excel file
 
             while (itr.hasNext())                 
             {  
                 Row row = itr.next(); 
-                ArrayList<String> arr = new ArrayList<String>();    //individiual composition metadata
+                ArrayList<String> arr = new ArrayList<String>(); //Individiual composition metadata
                 int rowLength = row.getPhysicalNumberOfCells();
 
                 // while (cellIterator.hasNext())
@@ -322,10 +321,10 @@ public class Library
 
                     switch (cell.getCellTypeEnum())               
                     {  
-                        case STRING:    //field that represents string cell type  
+                        case STRING:
                             arr.add(cell.getStringCellValue());  
                             break;
-                        case NUMERIC:    //field that represents number cell type  
+                        case NUMERIC:
                             arr.add(String.valueOf((int)cell.getNumericCellValue()));  
                             break;
                         case BLANK:
@@ -356,6 +355,7 @@ public class Library
         }
     }
 
+    // Overwrites the existing database
     public static void write(File xlsx) throws Exception
     {
         File file = xlsx;
@@ -365,7 +365,7 @@ public class Library
         System.out.println("Metadata list size: " + metadata.size());
         for (int i = 0; i < metadata.size(); i++) 
         {
-            XSSFRow row = sheet.createRow(rowid+1);
+            XSSFRow row = sheet.createRow(rowid+1); // Overwrites and clear the row if it already exists
             Composition c = metadata.get(i);
             ArrayList<String> arr = c.toStringArrayList();
   
@@ -393,14 +393,6 @@ public class Library
     //toString
     public String toString()
     {
-        // String temp = "";
-
-        // for(int i = 0; i < metadata.size(); i++)
-        // {
-        //     temp = temp + i + ": " + metadata.get(i).toString() + "\n";
-        // }
-
-        // return temp;
         return metadata.toString();
     }
 }

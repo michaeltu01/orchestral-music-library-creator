@@ -15,8 +15,9 @@ import javax.swing.*;
  *
  * @author Michael Tu
  */
-public class EditSummaryFrame extends JPanel {
-
+public class EditSummaryFrame extends JPanel
+{
+    // Instance variables
     public JButton backButton;
     private JTextPane metadata;
     private JLabel title;
@@ -36,8 +37,8 @@ public class EditSummaryFrame extends JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(Composition c, Library l) {
-
+    private void initComponents(Composition c, Library l)
+    {
         title = new JLabel();
         metadata = new JTextPane();
         backButton = new JButton();
@@ -61,6 +62,7 @@ public class EditSummaryFrame extends JPanel {
                 backButtonActionPerformed(evt);
             }
 
+            // Return to previous frame
             private void backButtonActionPerformed(ActionEvent evt) 
             {
                 JComponent comp = (JComponent)evt.getSource();
