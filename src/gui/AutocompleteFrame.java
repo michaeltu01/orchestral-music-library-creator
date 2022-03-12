@@ -131,21 +131,9 @@ public class AutocompleteFrame extends JPanel {
 
             private void helpButtonActionPerformed(ActionEvent evt)
             {
-                // JDialog help = new JDialog();
-                // JLabel instructions = new JLabel();
-
-                // instructions.setText("Hit ENTER on an empty search bar to see your entire library.");
-                // instructions.setHorizontalAlignment(JLabel.CENTER);
-                // help.add(instructions);
-
-                // help.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                // help.setSize(400, 100);
-                // System.out.println(help.getPreferredSize());
-                // help.setLocationRelativeTo(null);
-                // help.setVisible(true);
-
-                JOptionPane.showMessageDialog(autocompleteFrame, "Hit ENTER on an empty search bar to see your entire library.");
-            }
+                String str = "<html>Hit ENTER on an empty search bar to see your entire library.<br>"
+                                + "Search a number 1-6 to see all compositions with the corresponding VBODA grade<html>";
+                JOptionPane.showMessageDialog(autocompleteFrame, str);            }
         });
 
         GroupLayout layout = new GroupLayout(this);
@@ -213,24 +201,107 @@ public class AutocompleteFrame extends JPanel {
         String input = titleField.getText();
         System.out.println(input);
         
-        if(input.equals("")) // Shows all compositions in the Library
+        switch (input)
         {
-            return vbodaLibrary.getAll();
-        }
-        else // Shows all compositions with the matching title
-        {
-            for(int i = 0; i < vbodaLibrary.size(); i++)
-            {
-                Composition c = vbodaLibrary.getComposition(i);
-                String title = c.getTitle();
-
-                if(input.equals(title))
+            case "": // Shows all compositions in the Library
+                return vbodaLibrary.getAll();
+            case "0": // Shows all compositions with no VBODA grade (i.e. VBODA Grade = 0)
+                for(int i = 0; i < vbodaLibrary.size(); i++)
                 {
-                    arr.add(c);
+                    Composition c = vbodaLibrary.getComposition(i);
+                    int vbodaGrade = c.getVbodaGrade();
+
+                    if(vbodaGrade == 0)
+                    {
+                        arr.add(c);
+                    }
                 }
-            }
+                return arr;
+            case "1": // Shows all compositions with VBODA grade of 1
+                for(int i = 0; i < vbodaLibrary.size(); i++)
+                {
+                    Composition c = vbodaLibrary.getComposition(i);
+                    int vbodaGrade = c.getVbodaGrade();
+
+                    if(vbodaGrade == 1)
+                    {
+                        arr.add(c);
+                    }
+                }
+                return arr;
+            case "2": // Shows all compositions with VBODA grade of 2
+                for(int i = 0; i < vbodaLibrary.size(); i++)
+                {
+                    Composition c = vbodaLibrary.getComposition(i);
+                    int vbodaGrade = c.getVbodaGrade();
+
+                    if(vbodaGrade == 2)
+                    {
+                        arr.add(c);
+                    }
+                }
+                return arr;
+            case "3": // Shows all compositions with VBODA grade of 3
+                for(int i = 0; i < vbodaLibrary.size(); i++)
+                {
+                    Composition c = vbodaLibrary.getComposition(i);
+                    int vbodaGrade = c.getVbodaGrade();
+
+                    if(vbodaGrade == 3)
+                    {
+                        arr.add(c);
+                    }
+                }
+                return arr;
+            case "4": // Shows all compositions with VBODA grade of 4
+                for(int i = 0; i < vbodaLibrary.size(); i++)
+                {
+                    Composition c = vbodaLibrary.getComposition(i);
+                    int vbodaGrade = c.getVbodaGrade();
+
+                    if(vbodaGrade == 4)
+                    {
+                        arr.add(c);
+                    }
+                }
+                return arr;
+            case "5": // Shows all compositions with VBODA grade of 5
+                for(int i = 0; i < vbodaLibrary.size(); i++)
+                {
+                    Composition c = vbodaLibrary.getComposition(i);
+                    int vbodaGrade = c.getVbodaGrade();
+
+                    if(vbodaGrade == 5)
+                    {
+                        arr.add(c);
+                    }
+                }
+                return arr;
+            case "6": // Shows all compositions with VBODA grade of 6
+                for(int i = 0; i < vbodaLibrary.size(); i++)
+                {
+                    Composition c = vbodaLibrary.getComposition(i);
+                    int vbodaGrade = c.getVbodaGrade();
+
+                    if(vbodaGrade == 6)
+                    {
+                        arr.add(c);
+                    }
+                }
+                return arr;
+            default: // Shows all compositions with the matching title
+                for(int i = 0; i < vbodaLibrary.size(); i++)
+                {
+                    Composition c = vbodaLibrary.getComposition(i);
+                    String title = c.getTitle();
+
+                    if(input.equals(title))
+                    {
+                        arr.add(c);
+                    }
+                }
+                return arr;
         }
-        return arr;
     }
 
     public static void populateTable(Object[][] data)
