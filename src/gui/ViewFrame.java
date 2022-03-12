@@ -92,18 +92,13 @@ public class ViewFrame extends JPanel
 
             private void clearLibraryButtonActionPerformed(ActionEvent evt)
             {
-                library.clear();
-                library.toString();
+                Object[] options = {"Clear", "Don't Clear"};
+                int result = JOptionPane.showOptionDialog(viewFrame, "Are you sure you want to clear the entire library?", "Confirm clear library", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 
-                JDialog dialog = new JDialog();
-                JLabel confMessage = new JLabel("Library has been cleared. Confirm your save upon closing the application.");
-
-                confMessage.setHorizontalAlignment(JLabel.CENTER);
-                dialog.add(confMessage);
-                dialog.setSize(500, 100);
-                dialog.setLocationRelativeTo(null);
-                dialog.setVisible(true);
-
+                if(result == 0)
+                {
+                    library.clear();
+                }
             }
         });
 
