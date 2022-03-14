@@ -7,5 +7,8 @@ Welcome to the PAHS Orchestras Music Library Editor! You can fork/clone the repo
 
 # Version Changes
 
+## 1.2 (IA FINAL)
+* Minor bug fixes
+
 ## 1.1
 * Minor bug fixes
